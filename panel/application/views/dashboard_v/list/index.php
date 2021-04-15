@@ -20,7 +20,7 @@
     <!-- .navbar-search -->
 
     <!-- APP MAIN ==========-->
-    <main id="app-main" class="app-main">   
+    <main id="app-main" class="app-main">
         <div class="wrap">
             <section class="app-content">
                 <?php $this->load->view("{$viewFolder}/{$subViewFolder}/content"); ?>

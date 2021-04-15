@@ -1,607 +1,622 @@
-+function($, window){ 'use strict';
++function ($, window) {
+    'use strict';
 
-	var app = {
-		name: 'Infinity',
-		version: '2.0.0'
-	};
+    var app = {
+        name: 'Infinity',
+        version: '2.0.0'
+    };
 
-	app.defaults = {
-		menubar: {
-			folded: false,
-			theme: 'light',
-			themes: ['light', 'dark']
-		},
-		navbar: {
-			theme: 'primary',
-			themes: ['primary', 'success', 'warning', 'danger', 'pink', 'purple', 'inverse', 'dark']
-		}
-	};
+    app.defaults = {
+        menubar: {
+            folded: false,
+            theme: 'light',
+            themes: ['light', 'dark']
+        },
+        navbar: {
+            theme: 'primary',
+            themes: ['primary', 'success', 'warning', 'danger', 'pink', 'purple', 'inverse', 'dark']
+        }
+    };
 
-	// Cache DOM
-	app.$body = $('body');
-	app.$menubar = $('#menubar');
-	app.$appMenu = app.$menubar.find('.app-menu').first();
-	app.$navbar = $('#app-navbar');
-	app.$main = $('#app-main');
+    // Cache DOM
+    app.$body = $('body');
+    app.$menubar = $('#menubar');
+    app.$appMenu = app.$menubar.find('.app-menu').first();
+    app.$navbar = $('#app-navbar');
+    app.$main = $('#app-main');
 
-	// Which is the original loaded layout ?
-	app.defaultLayout = app.$body.hasClass('menubar-left');
-	app.topbarLayout = app.$body.hasClass('menubar-top');
+    // Which is the original loaded layout ?
+    app.defaultLayout = app.$body.hasClass('menubar-left');
+    app.topbarLayout = app.$body.hasClass('menubar-top');
 
-	// TODO
-	app.settings = app.defaults;
+    // TODO
+    app.settings = app.defaults;
 
-	var appSettings = app.name+app.version+"Settings";
-	app.storage = $.localStorage;
+    var appSettings = app.name + app.version + "Settings";
+    app.storage = $.localStorage;
 
-	if (app.storage.isEmpty(appSettings)) {
-		app.storage.set(appSettings, app.settings);
-	}
-	else {
-		app.settings = app.storage.get(appSettings);
-	}
+    if (app.storage.isEmpty(appSettings)) {
+        app.storage.set(appSettings, app.settings);
+    }
+    else {
+        app.settings = app.storage.get(appSettings);
+    }
 
-	app.saveSettings = function() {
-		app.storage.set(appSettings, app.settings);
-	};
+    app.saveSettings = function () {
+        app.storage.set(appSettings, app.settings);
+    };
 
-	// initialize navbar
-	app.$navbar.removeClass('primary').addClass(app.settings.navbar.theme).addClass('in');
-	app.$body.removeClass('theme-primary').addClass('theme-'+app.settings.navbar.theme);
+    // initialize navbar
+    app.$navbar.removeClass('primary').addClass(app.settings.navbar.theme).addClass('in');
+    app.$body.removeClass('theme-primary').addClass('theme-' + app.settings.navbar.theme);
 
-	// initialize menubar
-	app.$menubar.removeClass('light').addClass(app.settings.menubar.theme).addClass('in');
-	app.$body.removeClass('menubar-light').addClass('menubar-'+app.settings.menubar.theme);
+    // initialize menubar
+    app.$menubar.removeClass('light').addClass(app.settings.menubar.theme).addClass('in');
+    app.$body.removeClass('menubar-light').addClass('menubar-' + app.settings.menubar.theme);
 
-	// initialize main
-	app.$main.addClass('in');
-	
-	app.init = function() {
+    // initialize main
+    app.$main.addClass('in');
 
-		$('[data-plugin]').plugins();
-		$('.scrollable-container').perfectScrollbar();
+    app.init = function () {
 
-		// load some needed libs listed at: LIBS.others => library.js
-		var loadingLibs = loader.load(LIBS["others"]);
-		
-		loadingLibs.done(function(){
+        $('[data-plugin]').plugins();
+        $('.scrollable-container').perfectScrollbar();
 
-			$('[data-switchery]').each(function(){
-				var $this = $(this),
-						color = $this.attr('data-color') || '#188ae2',
-						jackColor = $this.attr('data-jackColor') || '#ffffff',
-						size = $this.attr('data-size') || 'default'
+        // load some needed libs listed at: LIBS.others => library.js
+        var loadingLibs = loader.load(LIBS["others"]);
 
-				new Switchery(this, {
-					color: color,
-					size: size,
-					jackColor: jackColor
-				});
-			});
-		});
-	};
+        loadingLibs.done(function () {
 
-	window.app = app;
+            $('[data-switchery]').each(function () {
+                var $this = $(this),
+                    color = $this.attr('data-color') || '#188ae2',
+                    jackColor = $this.attr('data-jackColor') || '#ffffff',
+                    size = $this.attr('data-size') || 'default'
+
+                new Switchery(this, {
+                    color: color,
+                    size: size,
+                    jackColor: jackColor
+                });
+            });
+        });
+    };
+
+    window.app = app;
 }(jQuery, window);
 
 
 // menubar MODULE
 // =====================
 
-+function($, window){ 'use strict';
-	// Cache DOM
-	var $body = app.$body,
-			$menubar = app.$menubar,
-			$appMenu = app.$appMenu,
-			$menubarFoldButton = $('#menubar-fold-btn'),
-			$menubarToggleButton = $('#menubar-toggle-btn');
++function ($, window) {
+    'use strict';
+    // Cache DOM
+    var $body = app.$body,
+        $menubar = app.$menubar,
+        $appMenu = app.$appMenu,
+        $menubarFoldButton = $('#menubar-fold-btn'),
+        $menubarToggleButton = $('#menubar-toggle-btn');
 
-	// menubar object
-	var menubar = {
-		open: false,
-		folded: app.settings.menubar.folded,
-		scrollInitialized: false,
+    // menubar object
+    var menubar = {
+        open: false,
+        folded: app.settings.menubar.folded,
+        scrollInitialized: false,
 
-		init: function() {
-			app.defaultLayout && this.folded && this.fold();
+        init: function () {
+            app.defaultLayout && this.folded && this.fold();
 
-			this.listenForEvents();
-		},
+            this.listenForEvents();
+        },
 
-		listenForEvents: function() {
-			var self = this;
+        listenForEvents: function () {
+            var self = this;
 
-			$(window).on('load', function(e) {
-				var current = Breakpoints.current();
-				
-				// highlight the open page's link
-				if (app.topbarLayout && current.name !== 'xs')
-					$(document).on('app-menu.reduce.done', self.highlightOpenLink.bind(self));
-				else
-					self.highlightOpenLink();
+            $(window).on('load', function (e) {
+                var current = Breakpoints.current();
 
-				// if (default) layout then init scroll
-				app.defaultLayout && !self.folded && self.initScroll();
-				
-				self.cloneAppUser() && self.foldAppUser();
+                // highlight the open page's link
+                if (app.topbarLayout && current.name !== 'xs')
+                    $(document).on('app-menu.reduce.done', self.highlightOpenLink.bind(self));
+                else
+                    self.highlightOpenLink();
 
-				// mobile or tablet
-				if (current.name === 'xs') {
-					// if the original layout is (topbar) then set the layout to (default) and initialize scroll
-					app.topbarLayout && self.setDefaultLayout() && self.initScroll();
+                // if (default) layout then init scroll
+                app.defaultLayout && !self.folded && self.initScroll();
 
-					// push the menubar out
-					self.pushOut();
-					
-					// if the menubar is folded then unfold it
-					self.folded && self.unFold();
-				}
+                self.cloneAppUser() && self.foldAppUser();
 
-				// desktop (small, medium and large) screens
-				if (app.topbarLayout &&  current.name !== 'xs') self.reduceAppMenu();
+                // mobile or tablet
+                if (current.name === 'xs') {
+                    // if the original layout is (topbar) then set the layout to (default) and initialize scroll
+                    app.topbarLayout && self.setDefaultLayout() && self.initScroll();
 
-				if (app.defaultLayout && (current.name !== 'xs' && current.name !== 'lg')) self.fold();
-			});
+                    // push the menubar out
+                    self.pushOut();
 
-			// changing the the layout according to breakpoints
-			Breakpoints.on('change', function() {
-				if (app.defaultLayout) {
-					if (/sm|md/g.test(this.current.name)){
-						self.folded || self.fold();
-					} else if(/lg/g.test(this.current.name)) {
-						!app.settings.menubar.folded && self.unFold();
-					} else {
-						self.unFold();
-					}
-				}
-			});
+                    // if the menubar is folded then unfold it
+                    self.folded && self.unFold();
+                }
 
-			Breakpoints.on('xs', {
-				enter: function() {
-					// if the initial layout is (topbar) layout
-					app.topbarLayout && self.setDefaultLayout() && self.initScroll() && self.toggleScroll();
-					// push the (menubar) out
-					self.pushOut();
-				},
-				leave: function() {
-					// if the initial layout is (default) layout
-					app.defaultLayout && self.pullIn();
-					// if the initial layout is (topbar) layout
-					app.topbarLayout && self.setTopbarLayout() && self.reduceAppMenu() && self.toggleScroll();
-				}
-			});
+                // desktop (small, medium and large) screens
+                if (app.topbarLayout && current.name !== 'xs') self.reduceAppMenu();
 
-			// folding and unfolding the menubar
-			$menubarFoldButton.on('click', function(e){
-				!self.folded ? self.fold() : self.unFold();
-				e.preventDefault();
-			});
+                if (app.defaultLayout && (current.name !== 'xs' && current.name !== 'lg')) self.fold();
+            });
 
-			// showing and hiding the menubar
-			$menubarToggleButton.on('click', function(e){
-				self.open ? self.pushOut() : self.pullIn();
-				e.preventDefault();
-			});
+            // changing the the layout according to breakpoints
+            Breakpoints.on('change', function () {
+                if (app.defaultLayout) {
+                    if (/sm|md/g.test(this.current.name)) {
+                        self.folded || self.fold();
+                    } else if (/lg/g.test(this.current.name)) {
+                        !app.settings.menubar.folded && self.unFold();
+                    } else {
+                        self.unFold();
+                    }
+                }
+            });
 
-			// toggling submenus when the menubar is folded
-			$(document).on('mouseenter mouseleave', 'body.menubar-fold ul.app-menu > li.has-submenu', function(e){
-				$(this).toggleClass('open').siblings('li').removeClass('open');
-			});
+            Breakpoints.on('xs', {
+                enter: function () {
+                    // if the initial layout is (topbar) layout
+                    app.topbarLayout && self.setDefaultLayout() && self.initScroll() && self.toggleScroll();
+                    // push the (menubar) out
+                    self.pushOut();
+                },
+                leave: function () {
+                    // if the initial layout is (default) layout
+                    app.defaultLayout && self.pullIn();
+                    // if the initial layout is (topbar) layout
+                    app.topbarLayout && self.setTopbarLayout() && self.reduceAppMenu() && self.toggleScroll();
+                }
+            });
 
-			// toggling submenus in the (topbar) layout
-			$(document).on('mouseenter mouseleave', 'body.menubar-top ul.app-menu li.has-submenu', self.toggleTopbarSubmneuOnHover);
+            // folding and unfolding the menubar
+            $menubarFoldButton.on('click', function (e) {
+                !self.folded ? self.fold() : self.unFold();
+                e.preventDefault();
+            });
 
-			// toggling submenus on click
-			$(document).on('click', 'body.menubar-unfold .app-menu .submenu-toggle, body.menubar-fold .app-menu .submenu .submenu-toggle', self.toggleSubmenuOnClick);
+            // showing and hiding the menubar
+            $menubarToggleButton.on('click', function (e) {
+                self.open ? self.pushOut() : self.pullIn();
+                e.preventDefault();
+            });
 
-			// readjust the scroll height on resize and orientationchange
-			$(window).on('resize orientationchange', self.readjustScroll);
-		},
+            // toggling submenus when the menubar is folded
+            $(document).on('mouseenter mouseleave', 'body.menubar-fold ul.app-menu > li.has-submenu', function (e) {
+                $(this).toggleClass('open').siblings('li').removeClass('open');
+            });
 
-		setDefaultLayout: function() {
-			app.$body.removeClass('menubar-top').addClass('menubar-left menubar-unfold');
-			return true;
-		},
+            // toggling submenus in the (topbar) layout
+            $(document).on('mouseenter mouseleave', 'body.menubar-top ul.app-menu li.has-submenu', self.toggleTopbarSubmneuOnHover);
 
-		setTopbarLayout: function() {
-			app.$body.removeClass('menubar-left menubar-unfold menubar-fold').addClass('menubar-top');
-			return true;
-		},
+            // toggling submenus on click
+            $(document).on('click', 'body.menubar-unfold .app-menu .submenu-toggle, body.menubar-fold .app-menu .submenu .submenu-toggle', self.toggleSubmenuOnClick);
 
-		cloneAppUser: function() {
-			var $navbarCollapse = $('.navbar .navbar-collapse');
-			if ($navbarCollapse.find('.app-user').length == 0){
-				$menubar.find('.app-user').clone().appendTo($navbarCollapse);
-			}
-			return true;
-		},
+            // readjust the scroll height on resize and orientationchange
+            $(window).on('resize orientationchange', self.readjustScroll);
+        },
 
-		foldAppUser: function() {
-			$('.app-user .avatar').addClass('dropdown').find('>a').attr('data-toggle', 'dropdown');
-			$('.app-user .dropdown-menu').first().clone().appendTo('.app-user .avatar')
-			return true;
-		},
+        setDefaultLayout: function () {
+            app.$body.removeClass('menubar-top').addClass('menubar-left menubar-unfold');
+            return true;
+        },
 
-		reduceAppMenu: function(){
-			var $appMenu = $('body.menubar-top .app-menu');
-			// if the menu is already customized return true
-			if ($appMenu.find('>li.more-items-li').length) return true;
+        setTopbarLayout: function () {
+            app.$body.removeClass('menubar-left menubar-unfold menubar-fold').addClass('menubar-top');
+            return true;
+        },
 
-			var $menuItems = $appMenu.find('> li:not(.menu-separator)');
-			if ($menuItems.length > 5) {
-				var $moreItemsLi = $('<li class="more-items-li has-submenu"></li>'),
-						$moreItemsUl = $('<ul class="submenu"></ul>'),
-						$moreItemsToggle = $('<a href="javascript:void(0)" class="submenu-toggle"></a>');
-				$moreItemsToggle.append(['<i class="menu-icon zmdi zmdi-more-vert zmdi-hc-lg"></i>', '<span class="menu-text">More...</span>', '<i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>']);
+        cloneAppUser: function () {
+            var $navbarCollapse = $('.navbar .navbar-collapse');
+            if ($navbarCollapse.find('.app-user').length == 0) {
+                $menubar.find('.app-user').clone().appendTo($navbarCollapse);
+            }
+            return true;
+        },
 
-				$menuItems.each(function(i, item){
-					if (i >= 5) $(item).clone().appendTo($moreItemsUl);
-				});
-				
-				$moreItemsLi.append([$moreItemsToggle, $moreItemsUl]).insertAfter($appMenu.find('>li:nth-child(5)'));
-			}
+        foldAppUser: function () {
+            $('.app-user .avatar').addClass('dropdown').find('>a').attr('data-toggle', 'dropdown');
+            $('.app-user .dropdown-menu').first().clone().appendTo('.app-user .avatar')
+            return true;
+        },
 
-			$(document).trigger('app-menu.reduce.done');
+        reduceAppMenu: function () {
+            var $appMenu = $('body.menubar-top .app-menu');
+            // if the menu is already customized return true
+            if ($appMenu.find('>li.more-items-li').length) return true;
 
-			return true;
-		},
+            var $menuItems = $appMenu.find('> li:not(.menu-separator)');
+            if ($menuItems.length > 5) {
+                var $moreItemsLi = $('<li class="more-items-li has-submenu"></li>'),
+                    $moreItemsUl = $('<ul class="submenu"></ul>'),
+                    $moreItemsToggle = $('<a href="javascript:void(0)" class="submenu-toggle"></a>');
+                $moreItemsToggle.append(['<i class="menu-icon zmdi zmdi-more-vert zmdi-hc-lg"></i>', '<span class="menu-text">More...</span>', '<i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>']);
 
-		toggleSubmenuOnClick: function(e) {
-			$(this).parent().toggleClass('open').find('> .submenu').slideToggle(500).end().siblings().removeClass('open').find('> .submenu').slideUp(500);
-			e.preventDefault();
-		},
+                $menuItems.each(function (i, item) {
+                    if (i >= 5) $(item).clone().appendTo($moreItemsUl);
+                });
 
-		toggleTopbarSubmneuOnHover: function(e){
-			var $this = $(this), total = $this.offset().left + $this.width();
-			var ww = $(window).width();
-			if ((ww - total) < 220) {
-				$this.find('> .submenu').css({left: 'auto', right: '100%'});
-			} else if ((ww - total) >= 220 && !$this.is('.app-menu > li')) {
-				$this.find('> .submenu').css({left: '100%', right: 'auto'});
-			}
-			$(this).toggleClass('open').siblings().removeClass('open');
-		},
+                $moreItemsLi.append([$moreItemsToggle, $moreItemsUl]).insertAfter($appMenu.find('>li:nth-child(5)'));
+            }
 
-		fold: function() {
-			$body.removeClass('menubar-unfold').addClass('menubar-fold');
-			$menubarFoldButton.removeClass('is-active');
-			this.toggleScroll() && this.toggleMenuHeading() && (this.folded = true);
-			$appMenu.find('li.open').removeClass('open') && $appMenu.find('.submenu').slideUp();
-			return true;
-		},
+            $(document).trigger('app-menu.reduce.done');
 
-		unFold: function() {
-			$body.removeClass('menubar-fold').addClass('menubar-unfold');
-			$menubarFoldButton.addClass('is-active');
-			// initialize the scroll if it's not initialized
-			this.scrollInitialized || this.initScroll();
-			this.toggleScroll() && this.toggleMenuHeading() && (this.folded = false);
-			$appMenu.find('li.open').removeClass('open') && $appMenu.find('.submenu').slideUp();
-			return true;
-		},
+            return true;
+        },
 
-		pullIn: function() {
-			$body.addClass('menubar-in') && $menubarToggleButton.addClass('is-active') && (this.open = true);
-			return true;
-		},
-		
-		pushOut: function() {
-			$body.removeClass('menubar-in') && $menubarToggleButton.removeClass('is-active') && (this.open = false);
-			return true;
-		},
+        toggleSubmenuOnClick: function (e) {
+            $(this).parent().toggleClass('open').find('> .submenu').slideToggle(500).end().siblings().removeClass('open').find('> .submenu').slideUp(500);
+            e.preventDefault();
+        },
 
-		initScroll: function() {
-			var $scrollInner = $('body.menubar-left.menubar-unfold .menubar-scroll-inner');
-			if (!this.scrollInitialized) {
-				$scrollInner.slimScroll({
-					height: 'auto',
-					position: 'right',
-					size: "5px",
-					color: '#98a6ad',
-					wheelStep: 10,
-					touchScrollStep: 50
-				});
-				this.scrollInitialized = true;
-			}
-			return true;
-		},
+        toggleTopbarSubmneuOnHover: function (e) {
+            var $this = $(this), total = $this.offset().left + $this.width();
+            var ww = $(window).width();
+            if ((ww - total) < 220) {
+                $this.find('> .submenu').css({left: 'auto', right: '100%'});
+            } else if ((ww - total) >= 220 && !$this.is('.app-menu > li')) {
+                $this.find('> .submenu').css({left: '100%', right: 'auto'});
+            }
+            $(this).toggleClass('open').siblings().removeClass('open');
+        },
 
-		readjustScroll: function(e){
-			if ($body.hasClass('menubar-top') || this.folded) return;
+        fold: function () {
+            $body.removeClass('menubar-unfold').addClass('menubar-fold');
+            $menubarFoldButton.removeClass('is-active');
+            this.toggleScroll() && this.toggleMenuHeading() && (this.folded = true);
+            $appMenu.find('li.open').removeClass('open') && $appMenu.find('.submenu').slideUp();
+            return true;
+        },
 
-			var parentHeight = $menubar.height(),
-					$targets = $('.menubar-scroll, .menubar-scroll-inner, .slimScrollDiv');
-			if (Breakpoints.current().name === 'xs') {
-				$targets.height(parentHeight);
-			} else {
-				$targets.height(parentHeight - 75);
-			}
-		},
+        unFold: function () {
+            $body.removeClass('menubar-fold').addClass('menubar-unfold');
+            $menubarFoldButton.addClass('is-active');
+            // initialize the scroll if it's not initialized
+            this.scrollInitialized || this.initScroll();
+            this.toggleScroll() && this.toggleMenuHeading() && (this.folded = false);
+            $appMenu.find('li.open').removeClass('open') && $appMenu.find('.submenu').slideUp();
+            return true;
+        },
 
-		toggleScroll: function(){
-			var $scrollContainer = $('.menubar-scroll-inner');
-			if(!$body.hasClass('menubar-unfold')){
-				$scrollContainer.css('overflow', 'inherit').parent().css('overflow', 'inherit');
-				$scrollContainer.siblings('.slimScrollBar').css('visibility', 'hidden');
-			} else{
-				$scrollContainer.css('overflow', 'hidden').parent().css('overflow', 'hidden');
-				$scrollContainer.siblings('.slimScrollBar').css('visibility', 'visible');
-			}
-			return true;
-		},
+        pullIn: function () {
+            $body.addClass('menubar-in') && $menubarToggleButton.addClass('is-active') && (this.open = true);
+            return true;
+        },
 
-		toggleMenuHeading: function() {
-			if ($body.hasClass("menubar-fold")) {
-				$('.app-menu > li:not(.menu-separator)').each(function(i, item){
-					if (!$(item).hasClass('has-submenu')) {
-						$(item).addClass('has-submenu').append('<ul class="submenu"></ul>');
-					}
-					var href = $(item).find('a:first-child').attr("href");
-					var menuHeading = $(item).find('> a > .menu-text').text();
-					$(item).find('.submenu').first().prepend('<li class="menu-heading"><a href="'+href+'">'+menuHeading+'</a></li>');
-				});
-			} else {
-				$appMenu.find('.menu-heading').remove();
-			}
+        pushOut: function () {
+            $body.removeClass('menubar-in') && $menubarToggleButton.removeClass('is-active') && (this.open = false);
+            return true;
+        },
 
-			return true;
-		},
+        initScroll: function () {
+            var $scrollInner = $('body.menubar-left.menubar-unfold .menubar-scroll-inner');
+            if (!this.scrollInitialized) {
+                $scrollInner.slimScroll({
+                    height: 'auto',
+                    position: 'right',
+                    size: "5px",
+                    color: '#98a6ad',
+                    wheelStep: 10,
+                    touchScrollStep: 50
+                });
+                this.scrollInitialized = true;
+            }
+            return true;
+        },
 
-		highlightOpenLink: function() {
-			var currentPageName = location.pathname.slice(location.pathname.lastIndexOf('/') + 1),
-					currentPageLink = $appMenu.find('a[href="'+currentPageName+'"]').first();
-			
-			currentPageLink.parents('li').addClass('active');
+        readjustScroll: function (e) {
+            if ($body.hasClass('menubar-top') || this.folded) return;
 
-			if ($body.hasClass('menubar-left') && !this.folded) {
-				currentPageLink.parents('.has-submenu').addClass('open').find('>.submenu').slideDown(500);
-			}
+            var parentHeight = $menubar.height(),
+                $targets = $('.menubar-scroll, .menubar-scroll-inner, .slimScrollDiv');
+            if (Breakpoints.current().name === 'xs') {
+                $targets.height(parentHeight);
+            } else {
+                $targets.height(parentHeight - 75);
+            }
+        },
 
-			return true;
-		},
-		
-		// gets the DOM applied theme
-		getAppliedTheme: function() {
-			var appliedTheme = "", themes = app.settings.menubar.themes, theme;
-			for(theme in themes) {
-				if ($menubar.hasClass(themes[theme])) {
-					appliedTheme = themes[theme];
-					break;
-				}
-			}
-			return appliedTheme;
-		},
+        toggleScroll: function () {
+            var $scrollContainer = $('.menubar-scroll-inner');
+            if (!$body.hasClass('menubar-unfold')) {
+                $scrollContainer.css('overflow', 'inherit').parent().css('overflow', 'inherit');
+                $scrollContainer.siblings('.slimScrollBar').css('visibility', 'hidden');
+            } else {
+                $scrollContainer.css('overflow', 'hidden').parent().css('overflow', 'hidden');
+                $scrollContainer.siblings('.slimScrollBar').css('visibility', 'visible');
+            }
+            return true;
+        },
 
-		getCurrentTheme: function() {
-			return app.settings.menubar.theme;
-		},
+        toggleMenuHeading: function () {
+            if ($body.hasClass("menubar-fold")) {
+                $('.app-menu > li:not(.menu-separator)').each(function (i, item) {
+                    if (!$(item).hasClass('has-submenu')) {
+                        $(item).addClass('has-submenu').append('<ul class="submenu"></ul>');
+                    }
+                    var href = $(item).find('a:first-child').attr("href");
+                    var menuHeading = $(item).find('> a > .menu-text').text();
+                    $(item).find('.submenu').first().prepend('<li class="menu-heading"><a href="' + href + '">' + menuHeading + '</a></li>');
+                });
+            } else {
+                $appMenu.find('.menu-heading').remove();
+            }
 
-		setTheme: function(theme) {
-			if (theme) app.settings.menubar.theme = theme;
-		},
+            return true;
+        },
 
-		// applies the theme to the DOM
-		applyTheme: function() {
-			$body.removeClass('menubar-'+this.getAppliedTheme())
-				.addClass('menubar-'+this.getCurrentTheme());
-			$menubar.removeClass(this.getAppliedTheme())
-				.addClass(this.getCurrentTheme());
-		}
-	};
+        highlightOpenLink: function () {
+            var currentPageName = location.pathname.slice(location.pathname.lastIndexOf('/') + 1),
+                currentPageLink = $appMenu.find('a[href="' + currentPageName + '"]').first();
 
-	window.app.menubar = menubar;
+            currentPageLink.parents('li').addClass('active');
+
+            if ($body.hasClass('menubar-left') && !this.folded) {
+                currentPageLink.parents('.has-submenu').addClass('open').find('>.submenu').slideDown(500);
+            }
+
+            return true;
+        },
+
+        // gets the DOM applied theme
+        getAppliedTheme: function () {
+            var appliedTheme = "", themes = app.settings.menubar.themes, theme;
+            for (theme in themes) {
+                if ($menubar.hasClass(themes[theme])) {
+                    appliedTheme = themes[theme];
+                    break;
+                }
+            }
+            return appliedTheme;
+        },
+
+        getCurrentTheme: function () {
+            return app.settings.menubar.theme;
+        },
+
+        setTheme: function (theme) {
+            if (theme) app.settings.menubar.theme = theme;
+        },
+
+        // applies the theme to the DOM
+        applyTheme: function () {
+            $body.removeClass('menubar-' + this.getAppliedTheme())
+                .addClass('menubar-' + this.getCurrentTheme());
+            $menubar.removeClass(this.getAppliedTheme())
+                .addClass(this.getCurrentTheme());
+        }
+    };
+
+    window.app.menubar = menubar;
 }(jQuery, window);
 
 
 // NAVBAR MODULE
 // =====================
 
-+function($, window){ 'use strict';
-	
-	// Cache DOM
-	var $body = app.$body,
-			$navbar = app.$navbar;
++function ($, window) {
+    'use strict';
 
-	var navbar = {
+    // Cache DOM
+    var $body = app.$body,
+        $navbar = app.$navbar;
 
-		init: function() {
-			this.listenForEvents();
-		},
+    var navbar = {
 
-		listenForEvents: function() {
-			$(document).on("click", '[data-toggle="collapse"]', function(e) {
-				var $trigger = $(e.target);
-				$trigger.is('[data-toggle="collapse"]') || ($trigger = $trigger.parents('[data-toggle="collapse"]'));
-				var $target = $($trigger.attr('data-target'));
-				if ($target.attr('id') === 'navbar-search') {
-					if (!$trigger.hasClass('collapsed')) {
-						var $field = $target.find('input[type="search"]').focus();
-						document.querySelector($field.selector).setSelectionRange(0, $field.val().length);
-					} else {
-						$target.find('input[type="search"]').blur();
-					}
-				} else if ($target.attr('id') === 'app-navbar-collapse') {
-					$body.toggleClass('navbar-collapse-in', !$trigger.hasClass('collapsed'));
-				}
-				e.preventDefault();
-			});
-		},
+        init: function () {
+            this.listenForEvents();
+        },
 
-		// get the DOM applied theme
-		getAppliedTheme: function() {
-			var appliedTheme = "", themes = app.settings.navbar.themes, theme;
-			for(theme in themes) {
-				if ($navbar.hasClass(themes[theme])) {
-					appliedTheme = themes[theme];
-					break;
-				}
-			}
-			return appliedTheme;
-		},
+        listenForEvents: function () {
+            $(document).on("click", '[data-toggle="collapse"]', function (e) {
+                var $trigger = $(e.target);
+                $trigger.is('[data-toggle="collapse"]') || ($trigger = $trigger.parents('[data-toggle="collapse"]'));
+                var $target = $($trigger.attr('data-target'));
+                if ($target.attr('id') === 'navbar-search') {
+                    if (!$trigger.hasClass('collapsed')) {
+                        var $field = $target.find('input[type="search"]').focus();
+                        document.querySelector($field.selector).setSelectionRange(0, $field.val().length);
+                    } else {
+                        $target.find('input[type="search"]').blur();
+                    }
+                } else if ($target.attr('id') === 'app-navbar-collapse') {
+                    $body.toggleClass('navbar-collapse-in', !$trigger.hasClass('collapsed'));
+                }
+                e.preventDefault();
+            });
+        },
 
-		getCurrentTheme: function() {
-			return app.settings.navbar.theme;
-		},
+        // get the DOM applied theme
+        getAppliedTheme: function () {
+            var appliedTheme = "", themes = app.settings.navbar.themes, theme;
+            for (theme in themes) {
+                if ($navbar.hasClass(themes[theme])) {
+                    appliedTheme = themes[theme];
+                    break;
+                }
+            }
+            return appliedTheme;
+        },
 
-		setTheme: function(theme) {
-			if (theme) app.settings.navbar.theme = theme;
-		},
+        getCurrentTheme: function () {
+            return app.settings.navbar.theme;
+        },
 
-		// applies the theme to the DOM
-		applyTheme: function() {
-			var appliedTheme = this.getAppliedTheme();
-			var currentTheme = this.getCurrentTheme();
-			$navbar.removeClass(appliedTheme).addClass(currentTheme);
-			$body.removeClass('theme-'+appliedTheme).addClass('theme-'+currentTheme);
-		}
-	};
-	window.app.navbar = navbar;
+        setTheme: function (theme) {
+            if (theme) app.settings.navbar.theme = theme;
+        },
+
+        // applies the theme to the DOM
+        applyTheme: function () {
+            var appliedTheme = this.getAppliedTheme();
+            var currentTheme = this.getCurrentTheme();
+            $navbar.removeClass(appliedTheme).addClass(currentTheme);
+            $body.removeClass('theme-' + appliedTheme).addClass('theme-' + currentTheme);
+        }
+    };
+    window.app.navbar = navbar;
 }(jQuery, window);
 
 
 // CUSTOMIZER MODULE
 // =====================
 
-+function($, window){ 'use strict';
-	
-	// Cache DOM
-	var $body = app.$body,
-			$menubar = app.$menubar,
-			$navbar = app.$navbar;
++function ($, window) {
+    'use strict';
 
-	var customizer = {
+    // Cache DOM
+    var $body = app.$body,
+        $menubar = app.$menubar,
+        $navbar = app.$navbar;
 
-		init: function() {
-			this.initCustomizer();
-			this.listenForEvents();
-		},
+    var customizer = {
 
-		initCustomizer: function() {
-			this.renderNavbarThemeChoices();
-			$('[data-toggle="menubar-theme"][data-theme="'+app.menubar.getCurrentTheme()+'"]').prop('checked', true);
-			$('[data-toggle="navbar-theme"][data-theme="'+app.navbar.getCurrentTheme()+'"]').prop('checked', true);
-			app.settings.menubar.folded && $('#menubar-fold-switch').prop('checked', true);
-		},
+        init: function () {
+            this.initCustomizer();
+            this.listenForEvents();
+        },
 
-		listenForEvents: function() {
-			// change navbar theme
-			$(document).on('change', '[data-toggle="menubar-theme"]', this.setMenubarTheme);
-			// change navbar theme
-			$(document).on('change', '[data-toggle="navbar-theme"]', this.setNavbarTheme);
-			// Toggle menubar fold
-			$(document).on('change', '#menubar-fold-switch', this.toggleMenubarFold);
-			// Resets settings to defaults
-			$(document).on('click', '#customizer-reset-btn', this.resetSettings);
-		},
+        initCustomizer: function () {
+            this.renderNavbarThemeChoices();
+            $('[data-toggle="menubar-theme"][data-theme="' + app.menubar.getCurrentTheme() + '"]').prop('checked', true);
+            $('[data-toggle="navbar-theme"][data-theme="' + app.navbar.getCurrentTheme() + '"]').prop('checked', true);
+            app.settings.menubar.folded && $('#menubar-fold-switch').prop('checked', true);
+        },
 
-		setMenubarTheme: function() {
-			var $this = $(this);
-			if (app.menubar.getCurrentTheme() !== $this.attr('data-theme')) {
-				app.menubar.setTheme($this.attr('data-theme'));
-				app.menubar.applyTheme();
-				app.saveSettings();
-			}
-		},
+        listenForEvents: function () {
+            // change navbar theme
+            $(document).on('change', '[data-toggle="menubar-theme"]', this.setMenubarTheme);
+            // change navbar theme
+            $(document).on('change', '[data-toggle="navbar-theme"]', this.setNavbarTheme);
+            // Toggle menubar fold
+            $(document).on('change', '#menubar-fold-switch', this.toggleMenubarFold);
+            // Resets settings to defaults
+            $(document).on('click', '#customizer-reset-btn', this.resetSettings);
+        },
 
-		setNavbarTheme: function(e){
-			var $this = $(this);
-			if (app.navbar.getCurrentTheme() !== $this.attr('data-theme')) {
-				app.navbar.setTheme($this.attr('data-theme'));
-				app.navbar.applyTheme();
-				app.saveSettings();
-			}
-		},
+        setMenubarTheme: function () {
+            var $this = $(this);
+            if (app.menubar.getCurrentTheme() !== $this.attr('data-theme')) {
+                app.menubar.setTheme($this.attr('data-theme'));
+                app.menubar.applyTheme();
+                app.saveSettings();
+            }
+        },
 
-		toggleMenubarFold: function(){
-			if ($(this).is(':checked')) {
-				app.settings.menubar.folded = true;
-				if ($body.hasClass('menubar-fold')) return;
-				app.menubar.fold();
-			} else {
-				app.settings.menubar.folded = false;
-				app.menubar.unFold();
-			}
-			app.saveSettings();
-		},
+        setNavbarTheme: function (e) {
+            var $this = $(this);
+            if (app.navbar.getCurrentTheme() !== $this.attr('data-theme')) {
+                app.navbar.setTheme($this.attr('data-theme'));
+                app.navbar.applyTheme();
+                app.saveSettings();
+            }
+        },
 
-		resetSettings: function(e){
-			app.settings = app.defaults;
-			app.saveSettings();
-			location.reload();
-		},
+        toggleMenubarFold: function () {
+            if ($(this).is(':checked')) {
+                app.settings.menubar.folded = true;
+                if ($body.hasClass('menubar-fold')) return;
+                app.menubar.fold();
+            } else {
+                app.settings.menubar.folded = false;
+                app.menubar.unFold();
+            }
+            app.saveSettings();
+        },
 
-		renderNavbarThemeChoices: function() {
-			var html = '';
-			app.settings.navbar.themes.forEach(function(themeName, index){
-				html += this.getTemplate(themeName);
-			}.bind(this));
+        resetSettings: function (e) {
+            app.settings = app.defaults;
+            app.saveSettings();
+            location.reload();
+        },
 
-			$('#navbar-customizer').prepend(html);
-		},
+        renderNavbarThemeChoices: function () {
+            var html = '';
+            app.settings.navbar.themes.forEach(function (themeName, index) {
+                html += this.getTemplate(themeName);
+            }.bind(this));
 
-		getTemplate: function(themeName) {
-			var html = '<div class="theme-choice radio radio-'+themeName+' m-b-md">';
-					html += '<input type="radio" id="navbar-'+themeName+'-theme" name="navbar-theme" data-toggle="navbar-theme" data-theme="'+themeName+'">';
-					html += '<label for="navbar-'+themeName+'-theme" class="text-'+themeName+'">'+themeName+'</label>';
-					html += '</div>';
-			return html;
-		}
-	};
+            $('#navbar-customizer').prepend(html);
+        },
 
-	window.app.customizer = customizer;
+        getTemplate: function (themeName) {
+            var html = '<div class="theme-choice radio radio-' + themeName + ' m-b-md">';
+            html += '<input type="radio" id="navbar-' + themeName + '-theme" name="navbar-theme" data-toggle="navbar-theme" data-theme="' + themeName + '">';
+            html += '<label for="navbar-' + themeName + '-theme" class="text-' + themeName + '">' + themeName + '</label>';
+            html += '</div>';
+            return html;
+        }
+    };
+
+    window.app.customizer = customizer;
 }(jQuery, window);
 
 // initialize app
-+function($, window) { 'use strict';
-	window.app.init();
-	window.app.menubar.init();
-	window.app.navbar.init();
-	window.app.customizer.init();
++function ($, window) {
+    'use strict';
+    window.app.init();
+
+    window.app.menubar.setTheme("dark");
+    window.app.menubar.applyTheme();
+
+    window.app.navbar.setTheme("warning");
+    window.app.navbar.applyTheme();
+
+    window.app.saveSettings();
+
+    window.app.menubar.init();
+    window.app.navbar.init();
+    window.app.customizer.init();
 }(jQuery, window);
 
 // other
-+function($, window) { 'use strict';
++function ($, window) {
+    'use strict';
 
-	$(window).on('load resize orientationchange', function(){
-		// readjust panels on load, resize and orientationchange
-		readjustActionPanel();
+    $(window).on('load resize orientationchange', function () {
+        // readjust panels on load, resize and orientationchange
+        readjustActionPanel();
 
-		// activate bootstrap tooltips
-		$('[data-toggle="tooltip"]').tooltip();
-	});
+        // activate bootstrap tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 
-	function readjustActionPanel(){
-		var $actionPanel = $('.app-action-panel');
-		if (!$actionPanel.length > 0) return;
-		var $actionList = $actionPanel.children('.app-actions-list').first();
-		$actionList.height($actionPanel.height() - $actionList.position().top);
-	}
+    function readjustActionPanel() {
+        var $actionPanel = $('.app-action-panel');
+        if (!$actionPanel.length > 0) return;
+        var $actionList = $actionPanel.children('.app-actions-list').first();
+        $actionList.height($actionPanel.height() - $actionList.position().top);
+    }
 
 }(jQuery, window);
 
 //= public function for adding themes
 function addNewTheme(themeName) {
-	var app = window.app;
-	// Only if the theme is not already exist
-	if (app.settings.navbar.themes.indexOf(themeName) === -1) {
-		app.settings.navbar.themes.push(themeName);
-		app.saveSettings();
-		location.reload();
-	}
+    var app = window.app;
+    // Only if the theme is not already exist
+    if (app.settings.navbar.themes.indexOf(themeName) === -1) {
+        app.settings.navbar.themes.push(themeName);
+        app.saveSettings();
+        location.reload();
+    }
 }
 
 //= public function for removing themes
 function removeTheme(themeName) {
-	var app = window.app,
-			index = app.settings.navbar.themes.indexOf(themeName);
-	if (index !== -1 && themeName !== 'primary') {
-		app.settings.navbar.themes.splice(index, 1);
+    var app = window.app,
+        index = app.settings.navbar.themes.indexOf(themeName);
+    if (index !== -1 && themeName !== 'primary') {
+        app.settings.navbar.themes.splice(index, 1);
 
-		// if the removed theme is the applied theme then fallback to primary
-		if (themeName === app.settings.navbar.theme)
-			app.settings.navbar.theme = 'primary';
+        // if the removed theme is the applied theme then fallback to primary
+        if (themeName === app.settings.navbar.theme)
+            app.settings.navbar.theme = 'primary';
 
-		app.saveSettings();
-		location.reload();
-	}
+        app.saveSettings();
+        location.reload();
+    }
 }

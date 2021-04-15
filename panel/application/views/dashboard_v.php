@@ -33,9 +33,6 @@
 <?php $this->load->view("includes/footer"); ?>
 <!-- /#app-footer -->
 </main>
-<!-- SIDE PANEL -->
-<?php $this->load->view("includes/right-aside"); ?>
-
 
 <?php $this->load->view("includes/include_script"); ?>
 </body>

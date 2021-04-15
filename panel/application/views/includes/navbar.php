@@ -1,5 +1,4 @@
 <nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">
-
     <!-- navbar header -->
     <div class="navbar-header">
         <button type="button" id="menubar-toggle-btn" class="navbar-toggle visible-xs-inline-block navbar-toggle-left hamburger hamburger--collapse js-hamburger">

@@ -53,7 +53,8 @@
         <div class="menubar-scroll-inner">
             <ul class="app-menu">
 
-                <li class="has-submenu">
+
+                <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
                         <span class="menu-text">Dashboard</span>
@@ -70,13 +71,13 @@
                 <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle">
                         <i class="menu-icon zmdi zmdi-apps zmdi-hc-lg"></i>
-                        <span class="menu-text">Galleries</span>
+                        <span class="menu-text">Galeriler</span>
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#"><span class="menu-text">Images</span></a></li>
-                        <li><a href="#"><span class="menu-text">Videos</span></a></li>
-                        <li><a href="#"><span class="menu-text">Files</span></a></li>
+                        <li><a href="#"><span class="menu-text">Resim Galerisi</span></a></li>
+                        <li><a href="#"><span class="menu-text">Video Galerisi</span></a></li>
+                        <li><a href="#"><span class="menu-text">Dosya Galerisi</span></a></li>
                     </ul>
                 </li>
 
@@ -90,56 +91,57 @@
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-cubes"></i>
-                        <span class="menu-text">Items</span>
+                        <span class="menu-text">Ürünler</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-newspaper-o"></i>
-                        <span class="menu-text">News</span>
+                        <span class="menu-text">Haberler</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-calendar"></i>
-                        <span class="menu-text">Courses</span>
+                        <span class="menu-text">Eğitimler</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-check zmdi-hc-lg"></i>
-                        <span class="menu-text">Referances</span>
+                        <span class="menu-text">Referanslar</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
-                        <span class="menu-text">Brands</span>
+                        <span class="menu-text">Markalar</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-user-secret"></i>
-                        <span class="menu-text">Users</span>
+                        <span class="menu-text">Kullanıcılar</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-users"></i>
-                        <span class="menu-text">Members</span>
+                        <span class="menu-text">Aboneler</span>
                     </a>
                 </li>
+
 
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-lamp zmdi-hc-lg"></i>
-                        <span class="menu-text">Popups</span>
+                        <span class="menu-text">Popup Hizmeti</span>
                     </a>
                 </li>
 
@@ -149,7 +151,6 @@
                         <span class="menu-text">Ana Sayfa</span>
                     </a>
                 </li>
-
 
             </ul><!-- .app-menu -->
         </div><!-- .menubar-scroll-inner -->

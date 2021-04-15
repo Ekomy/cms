@@ -9,4 +9,4 @@
         </button>
     </div>
     <div class="navbar-search-backdrop" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false"></div>
-</div><!-- .navbar-search -->
+</div>

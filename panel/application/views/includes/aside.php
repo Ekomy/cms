@@ -64,7 +64,7 @@
                 <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
-                        <span class="menu-text">Settings</span>
+                        <span class="menu-text">Ayarlar</span>
                     </a>
                 </li>
 

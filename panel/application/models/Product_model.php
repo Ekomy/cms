@@ -10,6 +10,10 @@ class Product_model extends CI_Model {
 
     }
 
+    public function get($where =array()) {
+        return $this->db->where($where)->get($this->tableName)->row();
+    }
+
     /** Tüm Kayıtları bana getirecek olan metot.. */
     public function get_all(){
 

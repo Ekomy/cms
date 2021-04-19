@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    $(".sortable").sortable();
+
     $('.remove-btn').click(function (e){
 
         $data_url = $(this).data("url");
@@ -32,4 +34,13 @@ $(document).ready(function(){
         }
     })
 
-    })
+    $(".sortable").on("sortupdate",function (event,ui){
+
+        var $data = $(this).sortable("serialize");
+        var $data_url = $(this).data("url");
+
+        $.post($data_url, {data : $data},function (response){
+           alert(response);
+        });
+    });
+})

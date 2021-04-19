@@ -56,12 +56,8 @@ class Product extends CI_Controller
             )
         );
 
-        // Form Validation Calistirilir..
-        // TRUE - FALSE
-        $validate = $this->form_validation->run();
 
-        // Monitör Askısı
-        // monitor-askisi
+        $validate = $this->form_validation->run();
 
         if($validate){
 
@@ -76,13 +72,15 @@ class Product extends CI_Controller
                 )
             );
 
+
+            // TODO ALERT sistemi eklenecek
             if($insert){
 
-                echo "kayit işlemi başarılıdır...";
+               redirect(base_url("product"));
 
             } else {
 
-                echo "işlem başarısızdır";
+                redirect(base_url("product"));
 
             }
 

@@ -37,6 +37,7 @@
                                 <td>
                                     <input
                                         type="checkbox"
+                                        data-size="medium"
                                         data-switchery
                                         data-color="#10c469"
                                         <?php echo ($item->isActive) ? "checked" : ""; ?>

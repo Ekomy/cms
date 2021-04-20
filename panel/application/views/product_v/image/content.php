@@ -55,7 +55,7 @@
                             <button
                                     data-url="<?php echo base_url("product/delete/"); ?>"
                                     class="btn btn-sm btn-danger btn-outline remove-btn">
-                                <i class="fa fa-trash"></i> Sil
+                                <i class="fa fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>
@@ -79,7 +79,7 @@
                             <button
                                     data-url="<?php echo base_url("product/delete/"); ?>"
                                     class="btn btn-sm btn-danger btn-outline remove-btn">
-                                <i class="fa fa-trash"></i> Sil
+                                <i class="fa fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>
@@ -103,7 +103,7 @@
                             <button
                                     data-url="<?php echo base_url("product/delete/"); ?>"
                                     class="btn btn-sm btn-danger btn-outline remove-btn">
-                                <i class="fa fa-trash"></i> Sil
+                                <i class="fa fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>
@@ -127,7 +127,7 @@
                             <button
                                     data-url="<?php echo base_url("product/delete/"); ?>"
                                     class="btn btn-sm btn-danger btn-outline remove-btn">
-                                <i class="fa fa-trash"></i> Sil
+                                <i class="fa fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>

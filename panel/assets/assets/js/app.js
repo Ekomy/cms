@@ -560,7 +560,7 @@
     'use strict';
     window.app.init();
 
-    window.app.menubar.setTheme("dark");
+    window.app.menubar.setTheme('dark');
     window.app.menubar.applyTheme();
 
     window.app.navbar.setTheme("warning");

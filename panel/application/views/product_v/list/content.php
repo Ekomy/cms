@@ -10,7 +10,7 @@
 
             <?php if(empty($items)) { ?>
 
-                <div class="alert alert-info text-center">
+                <div class="alert alert-danger text-center">
                     <p>There is no data available. Please press <a href="<?php echo base_url("product/new_form"); ?>">this</a> to add</p>
                 </div>
 

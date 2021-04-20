@@ -2,7 +2,7 @@
 
 class Product extends CI_Controller
 {
-    public $viewFolder = "";
+    public $viewFolder = "product_v";
 
     public function __construct()
     {

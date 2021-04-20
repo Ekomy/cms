@@ -41,7 +41,6 @@
                                         data-url=<?php echo base_url("product/isActiveSetter/$item->id"); ?>
                                         class="isActive"
                                         type="checkbox"
-                                        data-size="medium"
                                         data-switchery
                                         data-color="#10c469"
                                         <?php echo ($item->isActive) ? "checked" : ""; ?>
@@ -54,6 +53,7 @@
                                             <i class="fa fa-trash"></i> Sil
                                     </button>
                                     <a href="<?php echo base_url("product/update_form/$item->id"); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle</a>
+                                    <a href="<?php echo base_url("product/image_form/$item->id"); ?>" class="btn btn-sm btn-dark btn-outline"><i class="fa fa-image"></i>Pictures</a>
                                 </td>
                             </tr>
 

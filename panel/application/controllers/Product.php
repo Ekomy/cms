@@ -2,7 +2,7 @@
 
 class Product extends CI_Controller
 {
-    public $viewFolder = "product_v";
+    public $viewFolder = "";
 
     public function __construct()
     {
@@ -217,14 +217,37 @@ class Product extends CI_Controller
         }
     }
 
-    public function image_form(){
+    public function image_form($id){
 
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "image";
 
+        $viewData->item = $this->product_model->get(
+            array(
+                "id" => $id
+            )
+        );
+
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+
+    }
+
+    public function image_upload(){
+
+        $config["allowed_types"] = "jpg|jpeg|png";
+        $config["upload_path"] = "uploads/$this->viewFolder/";
+
+        $this->load->library("upload", $config);
+
+        $upload = $this->upload->do_upload("file");
+
+        if($upload){
+            echo "işlem başarılı";
+        }else{
+            echo "işlem başarısız";
+        }
 
     }
 }

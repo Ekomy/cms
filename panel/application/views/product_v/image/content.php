@@ -4,10 +4,9 @@
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="../api/dropzone" class="dropzone" data-plugin="dropzone" data-options="{ url: '../api/dropzone'}">
+                <form action="<?php echo base_url("product/image_upload"); ?>" class="dropzone" data-plugin="dropzone" data-options="{ url: '<?php echo base_url("product/image_upload"); ?>'}">
                     <div class="dz-message">
                         <h3 class="m-h-lg">Drop files here or click to upload.</h3>
-                        <p class="m-b-lg text-muted">(This is just a demo dropzone. Selected files are not actually uploaded.)</p>
                     </div>
                 </form>
             </div><!-- .widget-body -->
@@ -17,7 +16,7 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-            Pictures of the Item
+            pictures of( <?php echo $item->title; ?> ) this item.
         </h4>
     </div><!-- END column -->
     <div class="col-md-12">

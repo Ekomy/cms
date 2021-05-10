@@ -71,10 +71,11 @@
                 <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle">
                         <i class="menu-icon zmdi zmdi-apps zmdi-hc-lg"></i>
-                        <span class="menu-text">Galleries</span>
+                        <span class="menu-text">Gallery</span>
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
                     <ul class="submenu">
+                        <li><a href="<?php echo base_url("galleries"); ?>"><span class="menu-text">Galleries</span></a></li>
                         <li><a href="#"><span class="menu-text">Image Gallery</span></a></li>
                         <li><a href="#"><span class="menu-text">Video Gallery</span></a></li>
                         <li><a href="#"><span class="menu-text">File Gallery</span></a></li>
@@ -96,28 +97,28 @@
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("news"); ?>">
                         <i class="menu-icon fa fa-newspaper-o"></i>
                         <span class="menu-text">News</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("courses"); ?>">
                         <i class="menu-icon fa fa-calendar"></i>
-                        <span class="menu-text">Training</span>
+                        <span class="menu-text">Courses</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("references"); ?>">
                         <i class="menu-icon zmdi zmdi-check zmdi-hc-lg"></i>
                         <span class="menu-text">Referances</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("brands"); ?>">
                         <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
                         <span class="menu-text">Brands</span>
                     </a>

@@ -18,3 +18,9 @@ function getFileName(){
     return ($fileName->image_url);
 
 }
+
+function get_readable_date($date){
+
+    return strftime('%e %B %Y', strtotime($date));
+
+}

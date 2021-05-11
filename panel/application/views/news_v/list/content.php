@@ -90,3 +90,9 @@
         </div><!-- .widget -->
     </div><!-- END column -->
 </div>
+<style>
+    td iframe {
+     width: 200px!important;
+     height: 25px!important;
+    }
+    </style>

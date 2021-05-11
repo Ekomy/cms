@@ -125,7 +125,7 @@
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("users"); ?>">
                         <i class="menu-icon fa fa-user-secret"></i>
                         <span class="menu-text">Users</span>
                     </a>

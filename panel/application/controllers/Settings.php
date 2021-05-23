@@ -11,7 +11,7 @@ class Settings extends CI_Controller
 
         $this->viewFolder = "settings_v";
 
-        $this->load->model("setting_model");
+        $this->load->model("settings_model");
 
         if(!get_active_user()){
             redirect(base_url("login"));
@@ -24,12 +24,17 @@ class Settings extends CI_Controller
         $viewData = new stdClass();
 
         /** Tablodan Verilerin Getirilmesi.. */
-        $items = $this->setting_model->get();
+        $item = $this->settings_model->get();
+
+        if($item)
+            $viewData->subViewFolder = "update";
+        else
+            $viewData->subViewFolder = "no_content";
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "no_content";
-        $viewData->items = $items;
+
+        $viewData->items = $item;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
@@ -50,7 +55,7 @@ class Settings extends CI_Controller
 
         $this->load->library("form_validation");
 
-        $this->form_validation->set_rules("user_name", "User Name", "required|trim|is_unique[users.user_name]");
+        $this->form_validation->set_rules("user _name", "User Name", "required|trim|is_unique[users.user_name]");
         $this->form_validation->set_rules("full_name", "Name Surname", "required|trim");
         $this->form_validation->set_rules("email", "E-mail", "required|trim|valid_email|is_unique[users.email]");
         $this->form_validation->set_rules("password", "Password", "required|trim|min_length[6]|max_length[8]");
@@ -72,7 +77,7 @@ class Settings extends CI_Controller
 
         if($validate){
 
-            $insert = $this->setting_model->add(
+            $insert = $this->settings_model->add(
                 array(
                     "user_name"     => $this->input->post("user_name"),
                     "full_name"     => $this->input->post("full_name"),
@@ -126,7 +131,7 @@ class Settings extends CI_Controller
 
         $viewData = new stdClass();
 
-        $item = $this->setting_model->get(
+        $item = $this->settings_model->get(
             array(
                 "id"=>$id
             )
@@ -144,7 +149,7 @@ class Settings extends CI_Controller
 
         $viewData = new stdClass();
 
-        $item = $this->setting_model->get(
+        $item = $this->settings_model->get(
             array(
                 "id"=>$id
             )
@@ -161,7 +166,7 @@ class Settings extends CI_Controller
 
         $this->load->library("form_validation");
 
-         $oldUser = $this->setting_model->get(
+         $oldUser = $this->settings_model->get(
             array(
                 "id" => $id
             )
@@ -192,7 +197,7 @@ class Settings extends CI_Controller
 
         if($validate){
 
-            $update = $this->setting_model->update(array("id" => $id),
+            $update = $this->settings_model->update(array("id" => $id),
             array(
                 "user_name"     => $this->input->post("user_name"),
                 "full_name"     => $this->input->post("full_name"),
@@ -231,7 +236,7 @@ class Settings extends CI_Controller
             $viewData->form_error = true;
 
             /** Tablodan Verilerin Getirilmesi.. */
-            $viewData->item = $this->setting_model->get(
+            $viewData->item = $this->settings_model->get(
                 array(
                     "id"    => $id,
                 )
@@ -264,7 +269,7 @@ class Settings extends CI_Controller
 
         if($validate){
 
-            $update = $this->setting_model->update(array("id" => $id),
+            $update = $this->settings_model->update(array("id" => $id),
                 array(
                     "password"     => md5( $this->input->post("password")),
                 ));
@@ -301,7 +306,7 @@ class Settings extends CI_Controller
             $viewData->form_error = true;
 
             /** Tablodan Verilerin Getirilmesi.. */
-            $viewData->item = $this->setting_model->get(
+            $viewData->item = $this->settings_model->get(
                 array(
                     "id"    => $id,
                 )
@@ -314,7 +319,7 @@ class Settings extends CI_Controller
 
     public function delete($id){
 
-        $delete = $this->setting_model->delete(
+        $delete = $this->settings_model->delete(
             array(
                 "id" => $id
             )
@@ -349,7 +354,7 @@ class Settings extends CI_Controller
 
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
 
-            $this->setting_model->update(
+            $this->settings_model->update(
                 array(
                     "id"       => $id
                 ),
@@ -370,7 +375,7 @@ class Settings extends CI_Controller
 
         foreach ($items as $rank => $id) {
 
-            $this->setting_model->update(
+            $this->settings_model->update(
                 array(
                     "id" =>$id,
                     "rank !=" =>$rank

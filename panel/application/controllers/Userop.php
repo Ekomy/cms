@@ -114,38 +114,108 @@ class Userop extends CI_Controller {
 
     }
 
-    public function send_email(){
+    public function forget_password(){
 
-        $config = array(
-            "protocol"    => "smtp",
-            "smtp_host"   => "ssl://smtp.gmail.com",
-            "smtp_port"   => "465",
-            "smtp_user"   => "edarendeli97@gmail.com",
-            "smtp_pass"   => "EkinDar97!wroclaw",
-            "starttls"    => true,
-            "charset"     => "utf-8",
-            "mailtype"    => "html",
-            "wordwrap"    => true
-        );
-
-
-        $this->load->library("email" , $config);
-
-        $this->email->set_newline("\r\n");
-        $this->email->from("edarendeli97@gmail.com", "DEKIN");
-        $this->email->to("darendeli.ekin@gmail.com");
-        $this->email->subject("Sisteme Kayıt");
-        $this->email->message("Yaşıyooorrr!!!!");
-
-
-        $send = $this->email->send();
-
-        if($send){
-            echo "E-posta başarı ile gönderilmiştir";
-        } else {
-            echo $this->email->print_debugger();
+        if(get_active_user()){
+            redirect(base_url());
         }
 
+        $viewData = new stdClass();
+
+        /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "forget_password";
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+
     }
+
+    public function reset_password() {
+
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules("email", "E-Mail", "required|trim|valid_email");
+
+        $this->form_validation->set_message(
+            array(
+                "required"    => "<b>{field}</b> this field must be filled",
+                "valid_email" => "Plase enter a valid e-mail"
+            )
+        );
+
+        if($this->form_validation->run() === FALSE){
+
+            $viewData = new stdClass();
+
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "forget_password";
+            $viewData->form_error = true;
+
+            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+        }
+        else {
+
+            $user = $this->user_model->get(
+                array(
+                    "isActive"   => 1,
+                    "email"      => $this->input->post("email")
+                )
+            );
+
+            if($user){
+
+                $this->load->helper("string");
+                $temp_password = random_string();
+
+                $send = send_email($user->email, "Forgot Password" , "You can enter DEKIN system with your new password: <b>{$temp_password}</b>");
+
+                if($send){
+                    echo "E-posta başarı ile gönderilmiştir";
+                    $this->user_model->update(
+                        array(
+                            "id" => $user->id
+                        ),
+                        array(
+                            "password"  => md5($temp_password)
+                        )
+                    );
+
+                    $alert = array(
+                        "title"  => "Operation Success",
+                        "text"   => "Your new password is send it to you. Please Check your mail address",
+                        "type"   => "success"
+                    );
+
+                    $this->session->set_flashdata("alert", $alert);
+                    redirect(base_url("login"));
+
+                    die();
+
+                } else {
+                    $alert = array(
+                        "title"  => "Operation Failed",
+                        "text"   => "Operation failed. Please try again later.",
+                        "type"   => "error"
+                    );
+                }
+
+            } else {
+                $alert = array(
+                    "title"  => "Operation Failed",
+                    "text"   => "The E-mail is not used by any user",
+                    "type"   => "error"
+                );
+
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("forgot-password"));
+            }
+
+
+        }
+
+
+    }
+
+
 
 }

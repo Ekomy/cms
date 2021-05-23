@@ -7,7 +7,7 @@
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="<?php echo base_url("users/update/$item->id"); ?>" method="post">
+                <form action="<?php echo base_url("emailsettings/update/$item->id"); ?>" method="post">
                     <div class="form-group">
                         <label>User Name</label>
                         <input class="form-control" placeholder="User Name" name="user_name"  value="<?php echo isset($form_error) ? set_value("user_name") : $item->user_name ; ?>"  >
@@ -30,7 +30,7 @@
                         <?php } ?>
                     </div>
                     <button type="submit" class="btn btn-primary btn-md btn-outline">Update </button>
-                    <a href="<?php echo base_url("users"); ?>" class="btn btn-md btn-danger btn-outline">Cancel</a>
+                    <a href="<?php echo base_url("emailsettings"); ?>" class="btn btn-md btn-danger btn-outline">Cancel</a>
                 </form>
             </div><!-- .widget-body -->
         </div><!-- .widget -->

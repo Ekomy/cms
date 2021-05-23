@@ -52,21 +52,20 @@ class Emailsettings extends CI_Controller
 
         $this->load->library("form_validation");
 
-        $this->form_validation->set_rules("user_name", "User Name", "required|trim|is_unique[users.user_name]");
-        $this->form_validation->set_rules("full_name", "Name Surname", "required|trim");
-        $this->form_validation->set_rules("email", "E-mail", "required|trim|valid_email|is_unique[users.email]");
-        $this->form_validation->set_rules("password", "Password", "required|trim|min_length[6]|max_length[8]");
-        $this->form_validation->set_rules("re_password", "Re Password", "required|trim|min_length[6]|max_length[8]|matches[password]");
+        $this->form_validation->set_rules("protocol", "Protocol Name", "required|trim");
+        $this->form_validation->set_rules("host", "E-Mail host", "required|trim");
+        $this->form_validation->set_rules("port", "Port Number", "required|trim");
+        $this->form_validation->set_rules("user_name", "User Name", "required|trim");
+        $this->form_validation->set_rules("user", "E-mail(User)", "required|trim|valid_email");
+        $this->form_validation->set_rules("from", "To (User)", "required|trim|valid_email");
+        $this->form_validation->set_rules("to", "From (User)", "required|trim|valid_email");
+
+        $this->form_validation->set_rules("password", "Password", "required|trim");
 
         $this->form_validation->set_message(
             array(
                 "required"      => "<b>{field}</b> This filed must be filled",
                 "valid_email"   => "Please write a valid e-mail address.",
-                "is_unique"     => "<b>{field}</b> already used",
-                "matches"       => "Passwords are not the same",
-                "min_length" => "<b>{field}</b> must be longer than 6 characters",
-                "max_length" => "<b>{field}</b> must be shorter than 8 characters"
-
             )
         );
 
@@ -76,10 +75,14 @@ class Emailsettings extends CI_Controller
 
             $insert = $this->emailsettings_model->add(
                 array(
+                    "protocol"      => $this->input->post("protocol"),
+                    "host"          => $this->input->post("host"),
+                    "port"          => $this->input->post("port"),
                     "user_name"     => $this->input->post("user_name"),
-                    "full_name"     => $this->input->post("full_name"),
-                    "email"         => $this->input->post("email"),
-                    "password"      => md5($this->input->post("password")),
+                    "user"          => $this->input->post("user"),
+                    "from"          => $this->input->post("from"),
+                    "to"            => $this->input->post("to"),
+                    "password"      => $this->input->post("password"),
                     "isActive"      => 1,
                     "createdAt"     => date("Y-m-d H:i:s")
                 )

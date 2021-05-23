@@ -27,7 +27,7 @@
     </div><!-- #login-form -->
 
     <div class="simple-page-footer">
-        <p><a href="password-forget.html">Forgot Password ?</a></p>
+        <p><a href="<?php echo base_url("forgot-password"); ?>">Forgot Password ?</a></p>
     </div><!-- .simple-page-footer -->
 
 

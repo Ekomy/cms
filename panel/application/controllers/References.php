@@ -13,6 +13,10 @@ class References extends CI_Controller
 
         $this->load->model("reference_model");
 
+        if(!get_active_user()){
+            redirect(base_url("login"));
+        }
+
     }
 
     public function index(){

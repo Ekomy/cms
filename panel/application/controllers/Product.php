@@ -1,6 +1,7 @@
 <?php
 
-class Product extends CI_Controller
+class
+Product extends CI_Controller
 {
     public $viewFolder = "";
 
@@ -13,6 +14,10 @@ class Product extends CI_Controller
 
         $this->load->model("product_model");
         $this->load->model("product_image_model");
+
+        if(!get_active_user()){
+            redirect(base_url("login"));
+        }
 
     }
 

@@ -10,7 +10,7 @@
                 <form action="<?php echo base_url("product/update/$item->id"); ?>" method="post">
                     <div class="form-group">
                         <label>Başlık</label>
-                        <input class="form-control" placeholder="Başlık" name="title" value="<?php echo $item->title; ?>">
+                        <input class="form-control" placeholder="Title" name="title" value="<?php echo $item->title; ?>">
                         <?php if(isset($form_error)){ ?>
                             <small class="pull-right input-form-error"> <?php echo form_error("title"); ?></small>
                         <?php } ?>

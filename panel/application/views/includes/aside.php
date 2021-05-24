@@ -100,6 +100,13 @@
                 </li>
 
                 <li>
+                    <a href="<?php echo base_url("services"); ?>">
+                        <i class="menu-icon fa fa-leaf"></i>
+                        <span class="menu-text">Services</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="<?php echo base_url("news"); ?>">
                         <i class="menu-icon fa fa-newspaper-o"></i>
                         <span class="menu-text">News</span>

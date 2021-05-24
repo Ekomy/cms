@@ -55,21 +55,28 @@ class Settings extends CI_Controller
 
         $this->load->library("form_validation");
 
-        $this->form_validation->set_rules("user _name", "User Name", "required|trim|is_unique[users.user_name]");
-        $this->form_validation->set_rules("full_name", "Name Surname", "required|trim");
-        $this->form_validation->set_rules("email", "E-mail", "required|trim|valid_email|is_unique[users.email]");
-        $this->form_validation->set_rules("password", "Password", "required|trim|min_length[6]|max_length[8]");
-        $this->form_validation->set_rules("re_password", "Re Password", "required|trim|min_length[6]|max_length[8]|matches[password]");
+        if($_FILES["logo"]["name"] == ""){
+
+            $alert = array(
+                "title" => "Operation failed",
+                "text" => "Please choose an image",
+                "type" => "error"
+            );
+
+            $this->session->set_flashdata("alert",$alert);
+            redirect(base_url("settings/new_form"));
+
+            die();
+        }
+
+        $this->form_validation->set_rules("company_name", "School Name", "required|trim");
+        $this->form_validation->set_rules("phone_1", "Main phone number", "required|trim");
+        $this->form_validation->set_rules("email", "E-mail", "required|trim|valid_email");
 
         $this->form_validation->set_message(
             array(
                 "required"      => "<b>{field}</b> This filed must be filled",
-                "valid_email"   => "Please write a valid e-mail address.",
-                "is_unique"     => "<b>{field}</b> already used",
-                "matches"       => "Passwords are not the same",
-                "min_length" => "<b>{field}</b> must be longer than 6 characters",
-                "max_length" => "<b>{field}</b> must be shorter than 8 characters"
-
+                "valid_email"   => "<b>{field}</b> This address is not a valid address"
             )
         );
 
@@ -77,40 +84,75 @@ class Settings extends CI_Controller
 
         if($validate){
 
-            $insert = $this->settings_model->add(
-                array(
-                    "user_name"     => $this->input->post("user_name"),
-                    "full_name"     => $this->input->post("full_name"),
-                    "email"         => $this->input->post("email"),
-                    "password"      => md5($this->input->post("password")),
-                    "isActive"      => 1,
-                    "createdAt"     => date("Y-m-d H:i:s")
-                )
-            );
+            $file_name = convertToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"],PATHINFO_EXTENSION);
 
-            if($insert){
+            $config["allowed_types"] = "jpg|jpeg|png";
+            $config["upload_path"] = "uploads/$this->viewFolder/";
+            $config["file_name"] = $file_name;
 
-                $alert = array(
-                    "title" => "İşlem Başarılı",
-                    "text" => "Kayıt başarılı bir şekilde eklendi",
-                    "type"  => "success"
+            $this->load->library("upload", $config);
+
+            $upload = $this->upload->do_upload("logo");
+
+            if($upload){
+
+                $uploaded_file = $this->upload->data("file_name");
+
+                $insert = $this->settings_model->add(
+                    array(
+                        "company_name"     => $this->input->post("company_name"),
+                        "phone_1"          => $this->input->post("phone_1"),
+                        "phone_2"          => $this->input->post("phone_2"),
+                        "fax_1"            => $this->input->post("fax_1"),
+                        "fax_2"            => $this->input->post("fax_2"),
+                        "address"          => $this->input->post("address"),
+                        "about_us"         => $this->input->post("about_us"),
+                        "mission"          => $this->input->post("mission"),
+                        "vision"           => $this->input->post("vision"),
+                        "email"            => $this->input->post("email"),
+                        "facebook"         => $this->input->post("facebook"),
+                        "twitter"          => $this->input->post("twitter"),
+                        "instagram"        => $this->input->post("instagram"),
+                        "linkedin"         => $this->input->post("linkedin"),
+                        "logo"             => $uploaded_file,
+                        "createdAt"        => date("Y-m-d H:i:s")
+                    )
                 );
+
+                if($insert){
+
+                    $alert = array(
+                        "title"=> "Successfully added",
+                        "text" => "Your item is now on the list",
+                        "type" => "success"
+                    );
+
+                } else {
+
+                    $alert = array(
+                        "title" => "Operation failed",
+                        "text" => "There was a problem with adding",
+                        "type" => "error"
+                    );
+                }
 
             } else {
-
                 $alert = array(
-                    "title" => "İşlem Başarısız",
-                    "text" => "Kayıt Ekleme sırasında bir problem oluştu",
-                    "type"  => "error"
+                    "title" => "Operation failed",
+                    "text" => "Error: Image couldn't uploaded",
+                    "type" => "error"
                 );
+
+                $this->session->set_flashdata("alert",$alert);
+                redirect(base_url("settings/new_form"));
+
+                die();
+
             }
 
 
-            $this->session->set_flashdata("alert", $alert);
-
+            $this->session->set_flashdata("alert",$alert);
             redirect(base_url("settings"));
-
-            die();
 
         } else {
 
@@ -172,13 +214,11 @@ class Settings extends CI_Controller
             )
         );
 
-        if($oldUser->user_name != $this->input->post("user_name")){
+        if($oldUser->user_name != $this->input->post("company_name")){
             $this->form_validation->set_rules("user_name", "User Name", "required|trim|is_unique[users.user_name]");
         }
         if($oldUser->user_name != $this->input->post("email")){
             $this->form_validation->set_rules("email", "E-mail", "required|trim|valid_email|is_unique[users.email]");        }
-
-        $this->form_validation->set_rules("full_name", "Name Surname", "required|trim");
 
 
         $this->form_validation->set_message(

@@ -9,6 +9,8 @@ class Home extends CI_Controller{
         parent::__construct();
 
         $this->viewFolder = "homepage";
+        $this->load->helper("text");
+
 
     }
 
@@ -24,7 +26,6 @@ class Home extends CI_Controller{
         $viewData->viewFolder = "product_list_v";
 
         $this->load->model("product_model");
-        $this->load->helper("text");
 
         $viewData->products = $this->product_model->get_all(
             array(
@@ -35,23 +36,23 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function product_detail($url = ""){
+    public function product_detail($url = "")
+    {
 
         $viewData = new stdClass();
         $viewData->viewFolder = "product_v";
 
         $this->load->model("product_model");
         $this->load->model("product_image_model");
-        $this->load->helper("text");
 
         $viewData->product = $this->product_model->get(
             array(
                 "isActive" => 1,
-                "url"      => $url
+                "url" => $url
             )
         );
 
-        $viewData->product_images =  $this->product_image_model->get_all(
+        $viewData->product_images = $this->product_image_model->get_all(
             array(
                 "isActive" => 1,
                 "product_id" => $viewData->product->id
@@ -62,11 +63,31 @@ class Home extends CI_Controller{
         $viewData->other_products = $this->product_model->get_all(
             array(
                 "isActive" => 1,
-                "id !="    => $viewData->product->id,
-            ), "rand()",array("start" => 0, "count" => 3)
+                "id !=" => $viewData->product->id,
+            ), "rand()", array("start" => 0, "count" => 3)
         );
 
         $this->load->view($viewData->viewFolder, $viewData);
+
+
+    }
+
+    public function course_list(){
+
+        $viewData = new stdClass();
+        $viewData->viewFolder = "course_list_v";
+
+        $this->load->model("course_model");
+
+        $viewData->courses = $this->course_model->get_all(
+            array(
+                "isActive"  => 1
+            ), "rank ASC, event_date ASC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
+
     }
 
 }

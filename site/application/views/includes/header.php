@@ -86,7 +86,7 @@
                                                 </ul>
                                             </li>
                                             <li><a href="<?php echo base_url("product-list"); ?>">Products</a></li>
-                                            <li><a href="index.html">Education</a></li>
+                                            <li><a href="<?php echo base_url("course-list"); ?>">Courses</a></li>
                                             <li><a href="index.html">Teachers</a></li>
                                             <li><a href="index.html">Connect Us</a></li>
 

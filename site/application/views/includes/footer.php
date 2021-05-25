@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="footer-content">
-                            <div class="logo-footer"><img id="logo-footer" src="<?php echo base_url("assets/images");?>/logo_purple.png" alt=""></div>
+                            <div class="logo-footer"><img id="logo-footer" src="<?php echo base_url("assets/images");?>/logo.png" alt=""></div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus illo vel dolorum soluta consectetur doloribus sit. Delectus non tenetur odit dicta vitae debitis suscipit doloribus. Ipsa, aut voluptas quaerat... <a href="page-about.html">Learn More<i class="fa fa-long-arrow-right pl-5"></i></a></p>
                             <div class="separator-2"></div>
                             <nav>
@@ -156,7 +156,7 @@
                             <ul class="list-icons">
                                 <li><i class="fa fa-map-marker pr-10 text-default"></i> One infinity loop, 54100</li>
                                 <li><i class="fa fa-phone pr-10 text-default"></i> +00 1234567890</li>
-                                <li><a href="mailto:info@theproject.com"><i class="fa fa-envelope-o pr-10"></i>info@theproject.com</a></li>
+                                <li><a href="denge:info@dengeeducation.com"><i class="fa fa-envelope-o pr-10"></i>denge:info@dengeeducation.com</a></li>
                             </ul>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
             <div class="subfooter-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-center">Copyright © 2017 The Project by <a target="_blank" href="http://htmlcoder.me">HtmlCoder</a>. All Rights Reserved</p>
+                        <p class="text-center">Copyright © 2017 The DEKIN by <a target="_blank" href="http://htmlcoder.me">DEKIN</a>. All Rights Reserved</p>
                     </div>
                 </div>
             </div>

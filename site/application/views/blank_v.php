@@ -19,7 +19,7 @@
 	<!-- ================ -->
 	<section class="pv-40 clearfix">
 		<div class="container">
-			<h3 class="title space-top logo-font text-center text-default">The Highschool</h3>
+			<h3 class="title space-top logo-font text-center text-default">The Beauty</h3>
 			<div class="separator"></div>
 			<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea aut voluptates quia <br> eveniet velit inventore, corporis, rem laboriosam. Ex ipsam nihil, quos dicta atque alias vel sunt. Libero, molestiae quidem?</p>
 			<br>
@@ -57,9 +57,9 @@
 						<h3>Opening Hours</h3>
 						<div class="separator-2 mt-20 clearfix"></div>
 						<ul class="list-unstyled small list-icons text-left">
-							<li><strong class="text-default">Monday - Friday</strong> <span class="pull-right">8.00 - 17.00</span></li>
-							<li><strong class="text-default">Saturday</strong> <span class="pull-right">9.00 - 15.00</span></li>
-							<li><strong class="text-default">Sunday</strong> <span class="pull-right">10.00 - 12.00</span></li>
+							<li><strong class="text-default">Monday - Friday</strong> <span class="pull-right">8.00 - 18.00</span></li>
+							<li><strong class="text-default">Saturday</strong> <span class="pull-right">9.00 - 16.30</span></li>
+							<li><strong class="text-default">Sunday</strong> <span class="pull-right">9.30 - 16.00</span></li>
 						</ul>
 						<div class="separator-3 mt-20 clearfix"></div>
 						<p class="small text-default">Lorem ipsum dolor sit amet, consectetur.</p>

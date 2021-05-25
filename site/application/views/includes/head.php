@@ -1,6 +1,6 @@
 <meta charset="utf-8">
-<title>Dekin | HighSchool </title>
-<meta name="description" content="The Project a Bootstrap-based, Responsive HTML5 Template">
+<title>Denge HighSchool</title>
+<meta name="description" content="Denge">
 <meta name="author" content="htmlcoder.me">
 
 <!-- Mobile Meta -->

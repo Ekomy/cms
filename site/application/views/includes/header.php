@@ -17,9 +17,14 @@
                     <!-- ================ -->
                     <div class="header-first clearfix">
 
+                        <!-- logo -->
+                        <div id="logo" class="logo">
+                            <a href="index.html"><img id="logo_img" src="<?php echo base_url("assets/images");?>/logo.png" alt="The Project"></a>
+                        </div>
+
                         <!-- name-and-slogan -->
-                        <div class="site-slogan">
-                            HTML5 Template
+                        <div class="site-slogan ">
+                            <b>Denge HighSchool</b>
                         </div>
 
                     </div>
@@ -62,12 +67,12 @@
                                         <ul class="nav navbar-nav ">
 
 
-                                            <li class="active"><a href="index.html">MainPage</a></li>
+                                            <li class="active"><a href="index.html">Main Page</a></li>
                                             <li class="dropdown ">
                                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">About Us</a>
                                                 <ul class="dropdown-menu">
-                                                    <li ><a href="features-dark-page.html">Information</a></li>
-                                                    <li ><a href="<?php echo base_url("portfolyo-listesi"); ?>">Portfolyo</a></li>
+                                                    <li ><a href="features-dark-page.html">About Us</a></li>
+                                                    <li ><a href="features-typography.html">Portfolio</a></li>
                                                     <li ><a href="features-backgrounds.html">News</a></li>
                                                     <li ><a href="features-grid.html">References</a></li>
                                                 </ul>
@@ -80,10 +85,10 @@
                                                     <li ><a href="features-backgrounds.html">File Gallery</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="<?php echo base_url("urun-listesi"); ?>">Products</a></li>
-                                            <li><a href="index.html">Courses</a></li>
+                                            <li><a href="<?php echo base_url("product-list"); ?>">Products</a></li>
+                                            <li><a href="index.html">Education</a></li>
                                             <li><a href="index.html">Teachers</a></li>
-                                            <li><a href="index.html">Contact</a></li>
+                                            <li><a href="index.html">Connect Us</a></li>
 
                                         </ul>
                                         <!-- main-menu end -->

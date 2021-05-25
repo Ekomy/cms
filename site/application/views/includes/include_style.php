@@ -1,6 +1,6 @@
 
 <!-- Favicon -->
-<link rel="shortcut icon" href="<?php echo base_url("assets");?>/images/favicon.ico">
+<link rel="shortcut icon" href="<?php echo base_url("assets");?>/images/logo.png">
 
 <!-- Web Fonts -->
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>

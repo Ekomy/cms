@@ -89,7 +89,7 @@
                                             <li><a href="<?php echo base_url("product-list"); ?>">Products</a></li>
                                             <li><a href="<?php echo base_url("course-list"); ?>">Courses</a></li>
                                             <li><a href="<?php echo base_url("brand-list"); ?>">Teachers</a></li>
-                                            <li><a href="index.html">Connect Us</a></li>
+                                            <li><a href="<?php echo base_url("contact_us"); ?>">Connect Us</a></li>
 
                                         </ul>
                                         <!-- main-menu end -->

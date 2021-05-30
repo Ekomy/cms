@@ -1,6 +1,7 @@
 <?php
 
-class Home extends CI_Controller{
+class Home extends CI_Controller
+{
 
     public $viewFolder = "";
 
@@ -14,7 +15,8 @@ class Home extends CI_Controller{
 
     }
 
-    public function index(){
+    public function index()
+    {
 
         print_r(get_settings());
 
@@ -24,7 +26,8 @@ class Home extends CI_Controller{
 
     }
 
-    public function product_list(){
+    public function product_list()
+    {
 
         $viewData = new stdClass();
         $viewData->viewFolder = "product_list_v";
@@ -34,7 +37,7 @@ class Home extends CI_Controller{
         $viewData->products = $this->product_model->get_all(
             array(
                 "isActive" => 1
-                ), "rank ASC"
+            ), "rank ASC"
         );
 
         $this->load->view($viewData->viewFolder, $viewData);
@@ -76,7 +79,8 @@ class Home extends CI_Controller{
 
     }
 
-    public function course_list(){
+    public function course_list()
+    {
 
         $viewData = new stdClass();
         $viewData->viewFolder = "course_list_v";
@@ -85,7 +89,7 @@ class Home extends CI_Controller{
 
         $viewData->courses = $this->course_model->get_all(
             array(
-                "isActive"  => 1
+                "isActive" => 1
             ), "rank ASC, event_date ASC"
         );
 
@@ -122,7 +126,8 @@ class Home extends CI_Controller{
 
     }
 
-    public function reference_list(){
+    public function reference_list()
+    {
 
         $viewData = new stdClass();
         $viewData->viewFolder = "reference_list_v";
@@ -138,7 +143,8 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function brand_list(){
+    public function brand_list()
+    {
 
         $viewData = new stdClass();
         $viewData->viewFolder = "brand_list_v";
@@ -154,7 +160,8 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function service_list(){
+    public function service_list()
+    {
 
         $viewData = new stdClass();
         $viewData->viewFolder = "service_list_v";
@@ -170,7 +177,8 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function about_us(){
+    public function about_us()
+    {
 
         $viewData = new stdClass();
         $viewData->viewFolder = "about_v";
@@ -180,6 +188,132 @@ class Home extends CI_Controller{
         $viewData->settings = $this->settings_model->get();
 
         $this->load->view($viewData->viewFolder, $viewData);
+
+    }
+
+    public function contact()
+    {
+
+        $viewData = new stdClass();
+        $viewData->viewFolder = "contact_v";
+
+        $this->load->helper("captcha");
+
+        $config = array(
+            "word" => '',
+            "img_path" => 'captcha/',
+            "img_url" => base_url("captcha"),
+            "img_height" => 50,
+            "img_width" => 150,
+            "expiration" => 7200,
+            "word_length" => 5,
+            "font_size" => 40,
+            "img_id" => "captcha_img",
+            "pool" => "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHHIJKLMNOPQRSTUVWXYZ",
+            "colors" => array(
+                'background' => array(204, 0, 204),
+                'border' => array(255, 255, 255),
+                'text' => array(204, 255, 204),
+                'grid' => array(0, 0, 112)
+            )
+
+        );
+
+        $viewData->captcha = create_captcha($config);
+
+        $this->session->set_userdata("captcha", $viewData->captcha["word"]);
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
+    }
+
+    public function send_contact_message()
+    {
+
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules("name", "Name", "trim|required");
+        $this->form_validation->set_rules("email", "E-Mail", "trim|required|valid_email");
+        $this->form_validation->set_rules("subject", "Subject", "trim|required");
+        $this->form_validation->set_rules("message", "Message", "trim|required");
+        $this->form_validation->set_rules("captcha", "Validation Code", "trim|required");
+
+
+        if ($this->form_validation->run() === FALSE) {
+
+            // TODO Alert...
+
+            redirect(base_url("contact_us"));
+
+
+        } else {
+
+
+            if ($this->session->userdata("captcha") == $this->input->post("captcha")) {
+
+                $name = $this->input->post("name");
+                $email = $this->input->post("email");
+                $subject = $this->input->post("subject");
+                $message = $this->input->post("message");
+
+                $email_message = "{$name} isimli ziyaretçi. Mesaj Bıraktı <br><b>Mesaj : </b> {$message} <br> <b>E-posta : </b> {$email}";
+
+                if (send_email("", "Website contact message | $subject", $email_message)) {
+
+                    echo "success";
+                } else {
+                    echo "failed";
+                }
+
+            } else {
+
+                // TOdO Alert..
+
+                redirect(base_url("contact_us"));
+
+            }
+
+        }
+
+
+
+    }
+
+    public function make_me_member(){
+
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("subscribe_email","E-mail address","trim|required|valid_email");
+
+        if($this->form_validation->run() === FALSE) {
+
+
+        } else {
+
+
+            $this->load->model("member_model");
+
+            $insert = $this->member_model->add(
+                array(
+                    "email"       => $this->input->post("subscribe_email"),
+                    "isActive"    => 1,
+                    "createdAt"   => date("Y-m-d H:i:s"),
+                    "ip_address"  => $this->input->ip_address()
+                )
+            );
+
+            if($insert){
+
+            } else {
+
+            }
+        }
+
+        redirect(base_url("contact"));
+    }
+
+    public function news(){
+
+        
 
     }
 

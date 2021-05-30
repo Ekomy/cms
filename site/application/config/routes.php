@@ -64,6 +64,17 @@ $route["brand-list"]     = "home/brand_list";
 $route["service-list"]   = "home/service_list";
 $route["about-us"]       = "home/about_us";
 
+$route["contact_us"]         = "home/contact";
+$route["send-message"]       = "home/send_contact_message";
+$route["become-member"]      = "home/make_me_member";
+
+$route["news"]      = "home/news_list";
+
+
+
+
+
+
 
 
 

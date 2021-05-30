@@ -16,6 +16,10 @@ class Home extends CI_Controller{
 
     public function index(){
 
+        print_r(get_settings());
+
+        die();
+
         echo $this->viewFolder;
 
     }
@@ -87,6 +91,95 @@ class Home extends CI_Controller{
 
         $this->load->view($viewData->viewFolder, $viewData);
 
+
+    }
+
+    public function course_detail($url = "")
+    {
+
+        $viewData = new stdClass();
+        $viewData->viewFolder = "course_v";
+
+        $this->load->model("course_model");
+
+        $viewData->course = $this->course_model->get(
+            array(
+                "isActive" => 1,
+                "url" => $url
+            )
+        );
+
+
+        $viewData->other_courses = $this->course_model->get_all(
+            array(
+                "isActive" => 1,
+                "id !=" => $viewData->course->id,
+            ), "rand()", array("start" => 0, "count" => 3)
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
+
+    }
+
+    public function reference_list(){
+
+        $viewData = new stdClass();
+        $viewData->viewFolder = "reference_list_v";
+
+        $this->load->model("reference_model");
+
+        $viewData->references = $this->reference_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+    public function brand_list(){
+
+        $viewData = new stdClass();
+        $viewData->viewFolder = "brand_list_v";
+
+        $this->load->model("brand_model");
+
+        $viewData->brands = $this->brand_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+    public function service_list(){
+
+        $viewData = new stdClass();
+        $viewData->viewFolder = "service_list_v";
+
+        $this->load->model("service_model");
+
+        $viewData->services = $this->service_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+    public function about_us(){
+
+        $viewData = new stdClass();
+        $viewData->viewFolder = "about_v";
+
+        $this->load->model("settings_model");
+
+        $viewData->settings = $this->settings_model->get();
+
+        $this->load->view($viewData->viewFolder, $viewData);
 
     }
 

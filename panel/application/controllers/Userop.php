@@ -170,7 +170,7 @@ class Userop extends CI_Controller {
                 $send = send_email($user->email, "Forgot Password" , "You can enter DEKIN system with your new password: <b>{$temp_password}</b>");
 
                 if($send){
-                    echo "E-posta başarı ile gönderilmiştir";
+                    echo "E-Mail has send correctly";
                     $this->user_model->update(
                         array(
                             "id" => $user->id

@@ -1,3 +1,4 @@
+<?php $settings = get_settings() ; ?>
 <!-- header-container start -->
 <div class="header-container">
 
@@ -23,8 +24,8 @@
                         </div>
 
                         <!-- name-and-slogan -->
-                        <div class="site-slogan ">
-                            <b>Denge HighSchool</b>
+                        <div class="site-slogan" style="font-size: x-small">
+                            <b>Learn as if you were to live forever</b>
                         </div>
 
                     </div>
@@ -71,10 +72,10 @@
                                             <li class="dropdown ">
                                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">About Us</a>
                                                 <ul class="dropdown-menu">
-                                                    <li ><a href="features-dark-page.html">About Us</a></li>
-                                                    <li ><a href="features-typography.html">Portfolio</a></li>
+                                                    <li><a href="<?php echo base_url("about-us"); ?>">About Us</a></li>
                                                     <li ><a href="features-backgrounds.html">News</a></li>
-                                                    <li ><a href="features-grid.html">References</a></li>
+                                                    <li><a href="<?php echo base_url("reference-list"); ?>">References</a></li>
+                                                    <li><a href="<?php echo base_url("service-list"); ?>">Social Responsibility Projects</a></li>
                                                 </ul>
                                             </li>
                                             <li class="dropdown ">
@@ -87,7 +88,7 @@
                                             </li>
                                             <li><a href="<?php echo base_url("product-list"); ?>">Products</a></li>
                                             <li><a href="<?php echo base_url("course-list"); ?>">Courses</a></li>
-                                            <li><a href="index.html">Teachers</a></li>
+                                            <li><a href="<?php echo base_url("brand-list"); ?>">Teachers</a></li>
                                             <li><a href="index.html">Connect Us</a></li>
 
                                         </ul>

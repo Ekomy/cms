@@ -57,4 +57,13 @@ $route["product-list"] = "home/product_list";
 $route["product-detail/(:any)"] = "home/product_detail/$1";
 
 $route["course-list"] = "home/course_list";
+$route["course-detail/(:any)"] = "home/course_detail/$1";
+
+$route["reference-list"] = "home/reference_list";
+$route["brand-list"]     = "home/brand_list";
+$route["service-list"]   = "home/service_list";
+$route["about-us"]       = "home/about_us";
+
+
+
 

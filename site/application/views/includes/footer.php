@@ -1,3 +1,5 @@
+<?php $settings = get_settings(); ?>
+
 <footer id="footer" class="clearfix dark">
 
     <!-- .footer start -->
@@ -9,7 +11,10 @@
                     <div class="col-md-3">
                         <div class="footer-content">
                             <div class="logo-footer"><img id="logo-footer" src="<?php echo base_url("assets/images");?>/logo.png" alt=""></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus illo vel dolorum soluta consectetur doloribus sit. Delectus non tenetur odit dicta vitae debitis suscipit doloribus. Ipsa, aut voluptas quaerat... <a href="page-about.html">Learn More<i class="fa fa-long-arrow-right pl-5"></i></a></p>
+
+                            <p><?php echo character_limiter(strip_tags($settings->about_us),150) ?>
+                            <a href="<?php echo base_url("about-us"); ?>"><br>Learn More <i class="fa fa-long-arrow-right pl-5"></i></a></p></a> <br>
+                            </a>
                             <div class="separator-2"></div>
                             <nav>
                                 <ul class="nav nav-pills nav-stacked">
@@ -142,21 +147,30 @@
                     </div>
                     <div class="col-md-3">
                         <div class="footer-content">
-                            <h2 class="title">Find Us</h2>
+                            <h2 class="title">Social Media</h2>
                             <div class="separator-2"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium odio voluptatem necessitatibus illo vel dolorum soluta.</p>
+                            <p>Follow us from social media.Keep up with the latest news and updates.</p>
                             <ul class="social-links circle animated-effect-1">
-                                <li class="facebook"><a target="_blank" href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-                                <li class="twitter"><a target="_blank" href="http://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
-                                <li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
-                                <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
-                                <li class="xing"><a target="_blank" href="http://www.xing.com"><i class="fa fa-xing"></i></a></li>
+
+                                <?php if($settings->facebook) { ?>
+                                    <li class="facebook"><a target="_blank" href="<?php echo $settings->facebook; ?>"><i class="fa fa-facebook"></i></a></li>
+                                <?php }  ?>
+                                <?php if($settings->instagram) { ?>
+                                    <li class="instagram"><a target="_blank" href="<?php echo $settings->facebook; ?>"><i class="fa fa-instagram"></i></a></li>
+                                <?php }  ?>
+                                <?php if($settings->twitter) { ?>
+                                    <li class="twitter"><a target="_blank" href="<?php echo $settings->facebook; ?>"><i class="fa fa-twitter"></i></a></li>
+                                <?php }  ?>
+                                    <li class="googleplus"><a target="_blank" href="https://www.youtube.com/channel/UCQwL7mEtmrdXe_Uk012MQhA"><i class="fa fa-youtube"></i></a></li>
+                                <?php if($settings->linkedin) { ?>
+                                    <li class="linkedin"><a target="_blank" href="<?php echo $settings->facebook; ?>"><i class="fa fa-linkedin"></i></a></li>
+                                <?php }  ?>
                             </ul>
                             <div class="separator-2"></div>
                             <ul class="list-icons">
-                                <li><i class="fa fa-map-marker pr-10 text-default"></i> One infinity loop, 54100</li>
-                                <li><i class="fa fa-phone pr-10 text-default"></i> +00 1234567890</li>
-                                <li><a href="denge:info@dengeeducation.com"><i class="fa fa-envelope-o pr-10"></i>denge:info@dengeeducation.com</a></li>
+                                <li><i class="fa fa-map-marker pr-10 text-default"></i><?php echo $settings->address; ?></li>
+                                <li><i class="fa fa-phone pr-10 text-default"></i><?php echo $settings->phone_1; ?></li>
+                                <li><a href="denge:info@dengeeducation.com"><i class="fa fa-envelope-o pr-10"></i><?php echo $settings->email; ?></a></li>
                             </ul>
                         </div>
                     </div>
@@ -173,7 +187,7 @@
             <div class="subfooter-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-center">Copyright © 2017 The DEKIN by <a target="_blank" href="http://htmlcoder.me">DEKIN</a>. All Rights Reserved</p>
+                        <p class="text-center">Copyright © 2017 The  <a target="_blank" href="https://www.dengeegitim.k12.tr/"><?php echo $settings->company_name; ?> HighSchool</a>. All Rights Reserved</p>
                     </div>
                 </div>
             </div>

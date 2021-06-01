@@ -311,9 +311,73 @@ class Home extends CI_Controller
         redirect(base_url("contact"));
     }
 
-    public function news(){
+    public function news_list(){
 
-        
+        $viewData = new stdClass();
+        $viewData->viewFolder = "news_list_v";
+
+        $this->load->model("news_model");
+
+        $viewData->news_list = $this->news_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
+
+    }
+
+    public function news_detail($url){
+
+        if( $url != "") {
+
+            $viewData = new stdClass();
+            $viewData->viewFolder = "news_v";
+
+            $this->load->model("news_model");
+
+            $news = $this->news_model->get(
+                array(
+                    "isActive" => 1,
+                    "url"      => $url
+                ), "rank DESC"
+            );
+
+            if($news){
+
+                $viewData->news = $news;
+
+                $viewData->recent_news_list = $this->news_model->get_all(
+                    array(
+                        "isActive" => 1,
+                        "id !="    => $news->id
+                    ), "rank DESC", array("count" => 4, "start" => 0)
+                );
+
+                $viewCount  =  $news->viewCount +1;
+                $this->news_model->update(
+                    array(
+                        "id"  => $news->id
+                    ),
+                    array(
+                        "viewCount" => ++$news->viewCount
+                    )
+                );
+
+                $viewData->news->viewCount = $viewCount;
+                $viewData->opengrapgh = true;
+
+                $this->load->view($viewData->viewFolder, $viewData);
+
+            } else {
+
+            }
+
+        } else {
+
+        }
 
     }
 

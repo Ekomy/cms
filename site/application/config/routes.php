@@ -68,7 +68,8 @@ $route["contact_us"]         = "home/contact";
 $route["send-message"]       = "home/send_contact_message";
 $route["become-member"]      = "home/make_me_member";
 
-$route["news"]      = "home/news_list";
+$route["news"]          = "home/news_list";
+$route["new/(:any)"]    = "home/news_detail/$1";
 
 
 

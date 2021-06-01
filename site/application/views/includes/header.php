@@ -73,7 +73,7 @@
                                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">About Us</a>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="<?php echo base_url("about-us"); ?>">About Us</a></li>
-                                                    <li ><a href="features-backgrounds.html">News</a></li>
+                                                    <li ><a href="<?php echo base_url("news"); ?>">News</a></li>
                                                     <li><a href="<?php echo base_url("reference-list"); ?>">References</a></li>
                                                     <li><a href="<?php echo base_url("service-list"); ?>">Social Responsibility Projects</a></li>
                                                 </ul>

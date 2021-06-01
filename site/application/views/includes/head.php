@@ -15,7 +15,7 @@
     <?php if($news->news_type == "image") { ?>
         <meta property="og:image" content="<?php echo base_url("panel/uploads/news_v/$news->img_url"); ?>" />
     <?php } else { ?>
-        <meta property="og:video" content="<?php echo base_url("https://www.yputube.com/v/$news->video_url"); ?>" />
+        <meta property="og:video" content="<?php echo base_url("https://www.youtube.com/v/$news->video_url"); ?>" />
     <?php } ?>
 
 

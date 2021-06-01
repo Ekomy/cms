@@ -12,16 +12,11 @@ class Home extends CI_Controller
         $this->viewFolder = "homepage";
         $this->load->helper("text");
 
-
     }
 
-    public function index()
-    {
+    public function index(){
 
-        print_r(get_settings());
-
-        die();
-
+        // Anasayfa...
         echo $this->viewFolder;
 
     }

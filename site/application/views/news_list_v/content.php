@@ -54,7 +54,7 @@
                                     </div>
                                 </header>
                                 <div class="blogpost-content">
-                                    <p>Mauris dolor sapien, malesuada at interdum ut, hendrerit eget lorem. Nunc interdum mi neque, et  sollicitudin purus fermentum ut. Suspendisse faucibus nibh odio, a vehicula eros pharetra in. Maecenas  ullamcorper commodo rutrum. In iaculis lectus vel augue eleifend dignissim. Aenean viverra semper sollicitudin.</p>
+                                    <p>Those are some news about our school. You can click and via through the page and can see the news watch the videos and go through the pictures.</p>
                                 </div>
                                 <footer class="clearfix">
                                     <div class="tags pull-left"><i class="icon-tags"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a></div>

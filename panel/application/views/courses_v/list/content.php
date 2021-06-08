@@ -38,8 +38,8 @@
                                 <td><?php echo $item->description; ?></td>
                                 <td><?php echo get_readable_date($item->event_date); ?></td>
                                 <td class="text-center w100">
-                                        <img
-                                            src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
+                                        <img width="75"
+                                            src="<?php echo get_picture( $viewFolder, $item->img_url, "255x157"); ?>"
                                             alt=""
                                             class="img-rounded">
                                 </td>

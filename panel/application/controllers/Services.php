@@ -11,7 +11,7 @@ class Services extends CI_Controller
 
         $this->viewFolder = "services_v";
 
-        $this->load->model("services_model");
+        $this->load->model("service_model");
 
         if(!get_active_user()){
             redirect(base_url("login"));
@@ -24,7 +24,7 @@ class Services extends CI_Controller
         $viewData = new stdClass();
 
         /** Tablodan Verilerin Getirilmesi.. */
-        $items = $this->services_model->get_all(
+        $items = $this->service_model->get_all(
             array(), "rank ASC"
         );
 
@@ -78,30 +78,24 @@ class Services extends CI_Controller
 
         if($validate){
 
-            $file_name = convertToSEO(pathinfo($_FILES["img_url"]["name"],PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"],PATHINFO_EXTENSION);
+            // Upload Süreci...
+            $file_name = convertToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-            $config["allowed_types"] = "jpg|jpeg|png";
-            $config["upload_path"] = "uploads/$this->viewFolder/";
-            $config["file_name"] = $file_name;
+            $image_555x343 = upload_picture($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder",555,343, $file_name);
+            $image_350x217 = upload_picture($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder",350,217, $file_name);
 
-            $this->load->library("upload", $config);
+            if($image_555x343 && $image_350x217){
 
-            $upload = $this->upload->do_upload("img_url");
-
-            if($upload){
-
-                $uploaded_file = $this->upload->data("file_name");
-
-                $insert = $this->services_model->add(
-                array(
-                    "title"         => $this->input->post("title"),
-                    "description"   => $this->input->post("description"),
-                    "url"           => convertToSEO($this->input->post("title")),
-                    "img_url"       => $uploaded_file,
-                    "rank"          => 0,
-                    "isActive"      => 1,
-                    "createdAt"     => date("Y-m-d H:i:s")
-                )
+                $insert = $this->service_model->add(
+                    array(
+                        "title"         => $this->input->post("title"),
+                        "description"   => $this->input->post("description"),
+                        "url"           => convertToSEO($this->input->post("title")),
+                        "img_url"       => $file_name,
+                        "rank"          => 0,
+                        "isActive"      => 1,
+                        "createdAt"     => date("Y-m-d H:i:s")
+                    )
                 );
 
                 if($insert){
@@ -158,7 +152,7 @@ class Services extends CI_Controller
 
         $viewData = new stdClass();
 
-        $item = $this->services_model->get(
+        $item = $this->service_model->get(
             array(
                 "id"=>$id
             )
@@ -179,7 +173,7 @@ class Services extends CI_Controller
 
         $this->form_validation->set_message(
             array(
-                "required"  => "<b>{field}</b> alanı doldurulmalıdır"
+                "required"  => "<b>{field}</b> this field must be filled"
             )
         );
 
@@ -192,23 +186,16 @@ class Services extends CI_Controller
 
                     $file_name = convertToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-                    $config["allowed_types"] = "jpg|jpeg|png";
-                    $config["upload_path"] = "uploads/$this->viewFolder/";
-                    $config["file_name"] = $file_name;
+                    $image_555x343 = upload_picture($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder",555,343, $file_name);
+                    $image_350x217 = upload_picture($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder",350,217, $file_name);
 
-                    $this->load->library("upload", $config);
-
-                    $upload = $this->upload->do_upload("img_url");
-
-                    if ($upload) {
-
-                        $uploaded_file = $this->upload->data("file_name");
+                    if ($image_555x343 && $image_350x217) {
 
                         $data = array(
                             "title" => $this->input->post("title"),
                             "description" => $this->input->post("description"),
                             "url" => convertToSEO($this->input->post("title")),
-                            "img_url" => $uploaded_file
+                            "img_url" => $file_name
                         );
 
                     } else {
@@ -237,7 +224,7 @@ class Services extends CI_Controller
 
                 }
 
-            $update = $this->services_model->update(array("id" => $id), $data);
+            $update = $this->service_model->update(array("id" => $id), $data);
 
             // TODO Alert sistemi eklenecek...
             if($update){
@@ -272,7 +259,7 @@ class Services extends CI_Controller
             $viewData->form_error = true;
 
             /** Tablodan Verilerin Getirilmesi.. */
-            $viewData->item = $this->services_model->get(
+            $viewData->item = $this->service_model->get(
                 array(
                     "id"    => $id,
                 )
@@ -285,7 +272,7 @@ class Services extends CI_Controller
 
     public function delete($id){
 
-        $delete = $this->services_model->delete(
+        $delete = $this->service_model->delete(
             array(
                 "id" => $id
             )
@@ -320,7 +307,7 @@ class Services extends CI_Controller
 
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
 
-            $this->services_model->update(
+            $this->service_model->update(
                 array(
                     "id"       => $id
                 ),
@@ -341,7 +328,7 @@ class Services extends CI_Controller
 
         foreach ($items as $rank => $id) {
 
-            $this->services_model->update(
+            $this->service_model->update(
                 array(
                     "id" =>$id,
                     "rank !=" =>$rank
@@ -352,5 +339,7 @@ class Services extends CI_Controller
             );
         }
     }
+
+
 
 }

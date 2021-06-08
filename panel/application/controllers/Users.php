@@ -182,9 +182,7 @@ class Users extends CI_Controller
             array(
                 "required"      => "<b>{field}</b> This filed must be filled",
                 "valid_email"   => "Please write a valid e-mail address.",
-                "is_unique"     => "<b>{field}</b> already used",
-                "min_length" => "<b>{field}</b> must be longer than 6 characters",
-                "max_length" => "<b>{field}</b> must be shorter than 8 characters"
+                "is_unique"     => "<b>{field}</b> already used"
 
             )
         );

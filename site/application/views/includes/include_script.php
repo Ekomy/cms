@@ -1,19 +1,25 @@
 <?php $settings = get_settings(); ?>
+
 <!-- JavaScript files placed at the end of the document so the pages load faster -->
 <!-- ================================================== -->
 <!-- Jquery and Bootstap core js files -->
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/popper.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/bootstrap/js/bootstrap.min.js"></script>
 <!-- Modernizr javascript -->
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/rs-plugin-5/js/jquery.themepunch.tools.min.js?rev=5.0"></script>
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/rs-plugin-5/js/jquery.themepunch.revolution.min.js?rev=5.0"></script>
 <!-- Isotope javascript -->
+<script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/isotope/imagesloaded.pkgd.min.js"></script>
+
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/isotope/isotope.pkgd.min.js"></script>
 <!-- Magnific Popup javascript -->
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
 <!-- Appear javascript -->
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/waypoints/jquery.waypoints.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/waypoints/sticky.min.js"></script>
+
 <!-- Count To javascript -->
 <script type="text/javascript" src="<?php echo base_url("assets"); ?>/plugins/jquery.countTo.js"></script>
 <!-- Parallax javascript -->
@@ -21,8 +27,8 @@
 <!-- Contact form -->
 <script src="<?php echo base_url("assets"); ?>/plugins/jquery.validate.js"></script>
 <!-- Google Maps javascript -->
-<script id="mapScriptTag" type="text/javascript" data-lat="<?php echo $settings->lat; ?>" data-long="<?php echo $settings->long; ?>" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyAG8hYbpuGyc88vROUgTd9EWY5DQ8Yx7Kg"></script>
-<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/google.map.config.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyBkDsic45TbKrBxhbK2o7LavkgtrPUsNoI"></script>
+<script id="mapScriptTag" type="text/javascript" data-lat="<?php echo $settings->lat; ?>" data-long="<?php echo $settings->long; ?>" src="<?php echo base_url("assets"); ?>/js/google.map.config.js"></script>
 <!-- Background Video -->
 <script src="<?php echo base_url("assets"); ?>/plugins/vide/jquery.vide.js"></script>
 <!-- Owl carousel javascript -->

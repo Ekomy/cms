@@ -18,22 +18,25 @@
         <tbody class="sortable" data-url="<?php echo base_url("product/imageRankSetter"); ?>">
 
 
-        <?php foreach ($item_images as $image) { ?>
+        <?php foreach($item_images as $image){ ?>
 
             <tr id="ord-<?php echo $image->id; ?>">
                 <td class="order"><i class="fa fa-reorder"></i></td>
-                <td class="w100 text-center">#<?php echo $image->id; ?></td>
+                <td class="w50 text-center">#<?php echo $image->id; ?></td>
                 <td class="w100 text-center">
-                    <img width="30" src="<?php echo base_url("uploads/{$viewFolder}/$image->image_url"); ?>" alt="<?php echo $image->image_url; ?>" class="img-responsive">
+                    <img width="30"
+                         src="<?php echo get_picture($viewFolder, $image->image_url, "348x215"); ?>"
+                         alt="<?php echo $image->image_url; ?>"
+                         class="img-responsive">
                 </td>
                 <td><?php echo $image->image_url; ?></td>
                 <td class="w100 text-center">
                     <input
-                        data-url="<?php echo base_url("product/imageIsActiveSetter/$image->id"); ?>"
-                        class="isActive"
-                        type="checkbox"
-                        data-switchery
-                        data-color="#10c469"
+                            data-url="<?php echo base_url("product/imageIsActiveSetter/$image->id"); ?>"
+                            class="isActive"
+                            type="checkbox"
+                            data-switchery
+                            data-color="#10c469"
                         <?php echo ($image->isActive) ? "checked" : ""; ?>
                     />
                 </td>
@@ -49,8 +52,8 @@
                 </td>
                 <td class="w100 text-center">
                     <button
-                        data-url="<?php echo base_url("product/imageDelete/$image->id/$image->product_id"); ?>"
-                        class="btn btn-sm btn-danger btn-outline remove-btn btn-block">
+                            data-url="<?php echo base_url("product/imageDelete/$image->id/$image->product_id"); ?>"
+                            class="btn btn-sm btn-danger btn-outline remove-btn btn-block">
                         <i class="fa fa-trash"></i> Delete
                     </button>
                 </td>

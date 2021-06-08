@@ -71,6 +71,16 @@ $route["become-member"]      = "home/make_me_member";
 $route["news"]          = "home/news_list";
 $route["new/(:any)"]    = "home/news_detail/$1";
 
+$route["picture-gallery"]        = "home/image_gallery_list";
+$route["picture-gallery/(:any)"] = "home/image_gallery/$1";
+
+$route["video-gallery"]          = "home/video_gallery_list";
+$route["video-gallery/(:any)"]   = "home/video_gallery/$1";
+
+$route["file-gallery"]           = "home/file_gallery_list";
+$route["file-gallery/(:any)"]    = "home/file_gallery/$1";
+
+
 
 
 

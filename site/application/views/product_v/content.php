@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <!-- banner start -->
                 <!-- ================ -->
-                <div class="pv-40 banner light-gray-bg">
+                <div class="pv-40 banner">
                     <div class="container clearfix">
 
                         <!-- slideshow start -->

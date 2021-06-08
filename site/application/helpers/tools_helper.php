@@ -55,20 +55,20 @@ function get_portfolio_cover_image($id){
 
     $t = &get_instance();
 
-    $t->load->model("portfolio_image_model");
+    $t->load->model("course_image_model");
 
-    $cover_image = $t->portfolio_image_model->get(
+    $cover_image = $t->course_image_model->get(
         array(
             "isCover"       => 1,
-            "portfolio_id"    => $id
+            "course_id"    => $id
         )
     );
 
     if(empty($cover_image)){
 
-        $cover_image = $t->portfolio_image_model->get(
+        $cover_image = $t->course_image_model->get(
             array(
-                "portfolio_id"    => $id
+                "course_id"    => $id
             )
         );
 
@@ -135,5 +135,57 @@ function send_email($toEmail = "", $subject = "", $message = ""){
     $t->email->message($message);
 
     return $t->email->send();
+
+}
+
+function get_picture($path = "", $picture = "", $resolution = "50x50"){
+
+    if($picture != ""){
+
+        if(file_exists(FCPATH . "panel/uploads/$path/$resolution/$picture")){
+            $picture = base_url("panel/uploads/$path/$resolution/$picture");
+        } else {
+            $picture = base_url("assets/assets/images/default_image.png");
+
+        }
+
+    } else {
+
+        $picture = base_url("assets/assets/images/default_image_.png");
+
+    }
+
+    return $picture;
+
+}
+
+function get_popup_service($page = ""){
+
+    $t = &get_instance();
+
+    $t->load->model("popup_model");
+    $popup = $t->popup_model->get(
+        array(
+            "isActive"  => 1,
+            "page"      => $page
+        )
+    );
+
+    return (!empty($popup)) ? $popup : false;
+
+}
+
+function get_gallery_id_by_url($gallery_type = "" , $url){
+
+    $t = &get_instance();
+    $t->load->model("gallery_model");
+    $gallery = $t->gallery_model->get(
+        array(
+            "isActive" => 1,
+            "url"      => $url
+        )
+    );
+
+    return ($gallery) ? $gallery->id :false;
 
 }

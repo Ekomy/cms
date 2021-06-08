@@ -35,7 +35,7 @@
                                 <td>#<?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo $item->url; ?></td>
-                                <td><?php echo $item->description; ?></td>
+                                <td><?php echo character_limiter(strip_tags($item->description), 200); ?></td>
                                 <td class="text-center">
                                     <input
                                         data-url=<?php echo base_url("product/isActiveSetter/$item->id"); ?>
@@ -46,7 +46,7 @@
                                         <?php echo ($item->isActive) ? "checked" : ""; ?>
                                     />
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center w300">
                                     <button
                                             data-url="<?php echo base_url("product/delete/$item->id"); ?>"
                                             class="btn btn-sm btn-danger btn-outline remove-btn">

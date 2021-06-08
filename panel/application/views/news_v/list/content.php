@@ -21,7 +21,6 @@
                         <th class="order"><i class="fa fa-reorder"></i></th>
                         <th class="w50">#id</th>
                         <th>Title</th>
-                        <!-- <th>url</th>   --->
                         <th>Description</th>
                         <th>News's type</th>
                         <th>Images</th>
@@ -42,7 +41,7 @@
                                 <td class="text-center w100">
                                     <?php if($item->news_type == "image") { ?>
 
-                                        <img width="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
+                                        <img width="75" src="<?php echo get_picture($viewFolder,$item->img_url,"513x289"); ?>"
                                             alt=""
                                             class="img-rounded">
                                     <?php } else if($item->news_type == "video") { ?>

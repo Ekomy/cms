@@ -37,7 +37,7 @@
                                         <div class="pv-30 hidden-lg-down"></div>
                                         <h3><?php echo $reference->title; ?></h3>
                                         <div class="separator-2"></div>
-                                        <p class="margin-clear"><?php echo character_limiter(strip_tags($reference->description), 400); ?></p>
+                                        <p class="margin-clear"><?php echo character_limiter(strip_tags($reference->description), 100); ?></p>
                                         <br>
                                         <!--                                        <a href="#" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Read More<i class="fa fa-arrow-right pl-10"></i></a>-->
                                     </div>

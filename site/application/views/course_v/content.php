@@ -1,7 +1,7 @@
 <div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url("panel/uploads/courses_v/$course->img_url");?>'); background-position: 50% 21%;">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 text-center col-md-offset-2 pv-20">
+            <div class="col-md-12 text-center col-md-offset-2 pv-20">
                 <h2 class="title object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><strong><?php echo $course->title; ?></strong> </h2>
                 <div class="separator object-non-visible mt-10" data-animation-effect="fadeIn" data-effect-delay="100"></div>
                 <p class="text-center object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><?php echo character_limiter(strip_tags($course->description),200); ?></p>
@@ -34,7 +34,7 @@
 
                 <!-- section start -->
                 <!-- ================ -->
-                <section class="section light-gray-bg  pv-40 clearfix">
+                <section class="section pv-40 clearfix">
                     <div class="container">
                         <h3>Other <strong>Courses</strong></h3>
                         <div class="row grid-space-10">

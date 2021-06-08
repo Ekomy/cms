@@ -13,7 +13,7 @@
                 <h1 class="page-title">Courses List</h1>
                 <div class="separator-2"></div>
                 <!-- page-title end -->
-                <p class="lead">BLA BLA BLA BLA BLA BLA BLA </p>
+                <p class="lead">All of the courses we are happy to give</p>
 
                 <?php foreach($courses as $course) { ?>
 

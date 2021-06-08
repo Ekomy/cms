@@ -35,7 +35,7 @@
                                 <td><?php echo $item->title; ?></td>
                                 <td class="text-center w100">
                                         <img
-                                            src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
+                                            src="<?php echo get_picture($viewFolder, $item->img_url, "277x416"); ?>"
                                             alt=""
                                             class="img-rounded">
                                 </td>

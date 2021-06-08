@@ -15,7 +15,7 @@
     <!-- breadcrumb end -->
     <div class="container">
         <div class="row">
-            <div class="col-md-8 text-center col-md-offset-2 pv-20">
+            <div class="col-md-12 text-center col-md-offset-2 pv-20">
                 <h3 class="title logo-font object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><?php echo $settings->company_name; ?></h3>
                 <div class="separator object-non-visible mt-10" data-animation-effect="fadeIn" data-effect-delay="100"></div>
                 <p class="text-center object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100">
@@ -61,7 +61,7 @@
     <!-- ================ -->
     <div class="section light-gray-bg">
         <div class="container">
-            <h3><strong>Mission</strong> and <strong>Vision</strong></h3>
+            <h3>Why <strong>Us ?</strong></h3>
             <div class="separator-2"></div>
             <div class="row">
                 <!-- accordion start -->
@@ -82,6 +82,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -96,11 +97,12 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <!-- accordion end -->
             </div>
-
+            <!-- clients start -->
         </div>
     </div>
     <!-- section end -->

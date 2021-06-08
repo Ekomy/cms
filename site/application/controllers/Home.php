@@ -1,14 +1,12 @@
 <?php
 
-class Home extends CI_Controller
-{
+class Home extends CI_Controller {
 
     public $viewFolder = "";
 
     public function __construct()
     {
         parent::__construct();
-
         $this->viewFolder = "homepage";
         $this->load->helper("text");
 
@@ -16,9 +14,48 @@ class Home extends CI_Controller
 
     public function index(){
 
-        // Anasayfa...
-        echo $this->viewFolder;
+        $viewData = new stdClass();
+        $this->load->model("slide_model");
+        $this->load->model("reference_model");
+        $this->load->model("service_model");
+        $this->load->model("course_model");
 
+
+        $slides = $this->slide_model->get_all(
+            array(
+                    "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $references = $this->reference_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $services = $this->service_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $courses = $this->course_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+
+
+
+        $viewData->slides = $slides;
+        $viewData->references = $references;
+        $viewData->services = $services;
+        $viewData->courses = $courses;
+        $viewData->viewFolder = "home_v";
+
+
+        $this->load->view($viewData->viewFolder, $viewData);
     }
 
     public function product_list()
@@ -375,5 +412,67 @@ class Home extends CI_Controller
         }
 
     }
+
+    public function image_gallery_list(){
+
+        $viewData = new stdClass();
+        $viewData->viewFolder    = "galleries_v";
+        $viewData->subViewFolder = "image_galleries";
+        $viewData->viewName      = "list_content";
+
+        $this->load->model("gallery_model");
+
+        $viewData->galleries = $this->gallery_model->get_all(
+            array(
+                "isActive"      => 1,
+                "gallery_type"  => "image"
+            ), "rank DESC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
+    }
+
+    public function image_gallery($gallery_url = ""){
+
+        if($gallery_url){
+
+            $viewData = new stdClass();
+            $viewData->viewFolder    = "galleries_v";
+            $viewData->subViewFolder = "image_galleries";
+            $viewData->viewName      = "item_content";
+            $viewData->gallery       = get_gallery_by_url($gallery_url);
+
+            $this->load->model("image_model");
+
+            $viewData->images = $this->image_model->get_all(
+                array(
+                    "isActive"      => 1,
+                    "gallery_id"    => $viewData->gallery->id,
+                ), "rank DESC"
+            );
+
+            $this->load->view($viewData->viewFolder, $viewData);
+
+        }
+
+    }
+
+    public function video_gallery_list(){
+
+    }
+
+    public function video_gallery($gallery_url = ""){
+
+    }
+
+    public function file_gallery_list(){
+
+    }
+
+    public function file_gallery($gallery_url = ""){
+
+    }
+
 
 }

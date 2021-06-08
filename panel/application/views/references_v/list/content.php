@@ -34,10 +34,10 @@
                                 <td class="order"><i class="fa fa-reorder"></i></td>
                                 <td>#<?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
-                                <td><?php echo $item->description; ?></td>
+                                <td><?php echo character_limiter(strip_tags($item->description),200); ?></td>
                                 <td class="text-center w100">
-                                        <img
-                                            src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
+                                        <img width="75"
+                                            src="<?php echo get_picture($viewFolder, $item->img_url, "80x80"); ?>"
                                             alt=""
                                             class="img-rounded">
                                 </td>

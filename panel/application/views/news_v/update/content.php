@@ -57,7 +57,7 @@
                        <div class="row">
 
                            <div class="col-md-1 image_upload_container">
-                               <img src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>" alt=""
+                               <img src="<?php echo get_picture($viewFolder,$item->img_url,"513x289"); ?>" alt=""
                                class="img-responsive">
                            </div>
 
